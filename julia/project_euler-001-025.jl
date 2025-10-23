@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.11
+# v0.20.19
 
 using Markdown
 using InteractiveUtils
@@ -14,10 +14,19 @@ html"""
 <p>Find the sum of all the multiples of 3 or 5 below 1000.</p>
 """
 
-# ╔═╡ 1aae2c52-84a3-11eb-192d-9d80f63d47dd
-begin
-    submit_answer(nothing; prob_num=1)
+# ╔═╡ 8025d77a-c262-4c46-97d0-0159b96a9736
+md"""
+---
+Rather than filtering the list of all whole numbers below 1000, we can go in the opposite direction and build the union of the lists of multiples of 3 and multiples of 5.
+"""
+
+# ╔═╡ e08e156c-4d8f-4cc4-bcc9-f33ca94c8636
+function problem1()
+	sum(union(0:3:999, 0:5:999))
 end
+
+# ╔═╡ 1aae2c52-84a3-11eb-192d-9d80f63d47dd
+submit_answer(problem1(); prob_num=1)
 
 # ╔═╡ 1aae2c52-84a3-11eb-0833-9be45059026d
 html"""
@@ -27,10 +36,27 @@ html"""
 <p>By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.</p>
 """
 
-# ╔═╡ 1aae2c52-84a3-11eb-3619-fd1d226ab543
-begin
-    submit_answer(nothing; prob_num=2)
+# ╔═╡ afc318ab-7675-4c22-a1fe-98364b5c0765
+md"""
+---
+For this I went with calculating the sum in one pass, only adding even terms to the running sum in the `while` loop.
+"""
+
+# ╔═╡ c4bb4f0e-0314-4b8c-801f-3b82b149eac5
+function problem2()
+	a = 1; b = 1; sum = 0
+	while b < 4_000_000
+		c = a + b 
+		if iseven(c) 
+			sum += c 
+		end 
+		a = b; b = c
+	end
+	return sum
 end
+
+# ╔═╡ 1aae2c52-84a3-11eb-3619-fd1d226ab543
+submit_answer(problem2(); prob_num=2)
 
 # ╔═╡ 1ab07640-84a3-11eb-3324-5b7f82a3de60
 html"""
@@ -39,10 +65,22 @@ html"""
 <p>What is the largest prime factor of the number 600851475143 ?</p>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-380f-6f9c9331cc37
-begin
-    submit_answer(nothing; prob_num=3)
+# ╔═╡ da7c85e5-e1cd-45cc-920b-ef6f05c3d09e
+md"""
+---
+One of my goals for doing Project Euler in a particular language is to familiarize myself with its ecosystem, so I'm fine with pulling in community packages (here, `Primes.jl`) rather than writing algorithms from scratch.
+"""
+
+# ╔═╡ b4b58bdf-86e7-4fd6-84eb-12fcf2241978
+import Primes
+
+# ╔═╡ 4545e026-9ddd-4497-8d45-f1174daa2353
+function problem3()
+	Primes.factor(Vector, 600851475143) |> maximum
 end
+
+# ╔═╡ 1ab07640-84a3-11eb-380f-6f9c9331cc37
+submit_answer(problem3(); prob_num=3)
 
 # ╔═╡ 1ab07640-84a3-11eb-164b-9babaf70a3ab
 html"""
@@ -51,10 +89,18 @@ html"""
 <p>Find the largest palindrome made from the product of two 3-digit numbers.</p>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-18d4-116fdb44c5ea
-begin
-    submit_answer(nothing; prob_num=4)
+# ╔═╡ ea9b69fe-6888-4433-b0ea-07d78d34376d
+function is_palindrome(n)
+	string(n) == reverse(string(n))
 end
+
+# ╔═╡ 804977d3-cc2b-4a29-88d4-32912ecf748a
+function problem4()
+	maximum(n*m for n=100:999 for m=100:999 if is_palindrome(n*m))
+end
+
+# ╔═╡ 1ab07640-84a3-11eb-18d4-116fdb44c5ea
+submit_answer(problem4(); prob_num=4)
 
 # ╔═╡ 1ab07640-84a3-11eb-00ee-61945257b315
 html"""
@@ -63,10 +109,19 @@ html"""
 <p>What is the smallest positive number that is <dfn title="divisible with no remainder">evenly divisible</dfn> by all of the numbers from 1 to 20?</p>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-074d-29023f790f03
-begin
-    submit_answer(nothing; prob_num=5)
+# ╔═╡ 1a491117-0fad-4222-8cae-88e52230911d
+md"""
+---
+This describes the lowest commmon multiple.
+"""
+
+# ╔═╡ 8975c24b-4da9-42b5-bd5c-b52887c3d867
+function problem5()
+	lcm(1:20...)
 end
+
+# ╔═╡ 1ab07640-84a3-11eb-074d-29023f790f03
+submit_answer(problem5(); prob_num=5)
 
 # ╔═╡ 1ab07640-84a3-11eb-10df-f5cad66f6b6b
 html"""
@@ -520,17 +575,57 @@ begin
     submit_answer(nothing; prob_num=25)
 end
 
+# ╔═╡ 00000000-0000-0000-0000-000000000001
+PLUTO_PROJECT_TOML_CONTENTS = """
+[deps]
+Primes = "27ebfcd6-29c5-5fa9-bf4b-fb8fc14df3ae"
+
+[compat]
+Primes = "~0.5.7"
+"""
+
+# ╔═╡ 00000000-0000-0000-0000-000000000002
+PLUTO_MANIFEST_TOML_CONTENTS = """
+# This file is machine-generated - editing it directly is not advised
+
+julia_version = "1.12.0"
+manifest_format = "2.0"
+project_hash = "5cfa1418f1e5422dcaaab16d0d33e34647e491de"
+
+[[deps.IntegerMathUtils]]
+git-tree-sha1 = "4c1acff2dc6b6967e7e750633c50bc3b8d83e617"
+uuid = "18e54dd8-cb9d-406c-a71d-865a43cbb235"
+version = "0.1.3"
+
+[[deps.Primes]]
+deps = ["IntegerMathUtils"]
+git-tree-sha1 = "25cdd1d20cd005b52fc12cb6be3f75faaf59bb9b"
+uuid = "27ebfcd6-29c5-5fa9-bf4b-fb8fc14df3ae"
+version = "0.5.7"
+"""
+
 # ╔═╡ Cell order:
 # ╠═1aae2c52-84a3-11eb-089d-1995350e99de
 # ╟─1aae2c52-84a3-11eb-346f-99368af94262
+# ╟─8025d77a-c262-4c46-97d0-0159b96a9736
+# ╠═e08e156c-4d8f-4cc4-bcc9-f33ca94c8636
 # ╠═1aae2c52-84a3-11eb-192d-9d80f63d47dd
 # ╟─1aae2c52-84a3-11eb-0833-9be45059026d
+# ╟─afc318ab-7675-4c22-a1fe-98364b5c0765
+# ╠═c4bb4f0e-0314-4b8c-801f-3b82b149eac5
 # ╠═1aae2c52-84a3-11eb-3619-fd1d226ab543
 # ╟─1ab07640-84a3-11eb-3324-5b7f82a3de60
+# ╟─da7c85e5-e1cd-45cc-920b-ef6f05c3d09e
+# ╠═b4b58bdf-86e7-4fd6-84eb-12fcf2241978
+# ╠═4545e026-9ddd-4497-8d45-f1174daa2353
 # ╠═1ab07640-84a3-11eb-380f-6f9c9331cc37
 # ╟─1ab07640-84a3-11eb-164b-9babaf70a3ab
+# ╠═ea9b69fe-6888-4433-b0ea-07d78d34376d
+# ╠═804977d3-cc2b-4a29-88d4-32912ecf748a
 # ╠═1ab07640-84a3-11eb-18d4-116fdb44c5ea
 # ╟─1ab07640-84a3-11eb-00ee-61945257b315
+# ╟─1a491117-0fad-4222-8cae-88e52230911d
+# ╠═8975c24b-4da9-42b5-bd5c-b52887c3d867
 # ╠═1ab07640-84a3-11eb-074d-29023f790f03
 # ╟─1ab07640-84a3-11eb-10df-f5cad66f6b6b
 # ╠═1ab07640-84a3-11eb-0b98-cf52e1a3ecd9
@@ -572,3 +667,5 @@ end
 # ╠═1ab2e740-84a3-11eb-07dc-75eec1a30856
 # ╟─1ab2e740-84a3-11eb-0fdf-b748c7b42fc4
 # ╠═1ab2e740-84a3-11eb-2ed0-7d9823dad862
+# ╟─00000000-0000-0000-0000-000000000001
+# ╟─00000000-0000-0000-0000-000000000002
