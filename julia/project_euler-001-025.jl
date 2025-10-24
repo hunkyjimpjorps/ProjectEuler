@@ -885,9 +885,7 @@ end
 problem25 = first(n for n = Iterators.countfrom() if log10(fib(n)) > 999)
 
 # ╔═╡ 1ab2e740-84a3-11eb-2ed0-7d9823dad862
-begin
-    submit_answer(problem25; prob_num=25)
-end
+submit_answer(problem25; prob_num=25)
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
