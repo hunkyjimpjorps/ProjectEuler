@@ -4,6 +4,18 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 54b819bd-55dd-42a6-91fa-b25ff727de8b
+using LinearAlgebra
+
+# ╔═╡ 5c4b90c1-4ac0-4a80-a0a1-0395034d747c
+using Dates
+
+# ╔═╡ e597423d-aa19-4cfa-b676-c5009d01c110
+using Combinatorics
+
+# ╔═╡ 9750db60-c460-4a5f-8e4a-6be03999a250
+using Memoization
+
 # ╔═╡ 1aae2c52-84a3-11eb-089d-1995350e99de
 include((@__DIR__)*"/shared.jl");
 
@@ -134,9 +146,17 @@ $$(1 + 2 + ... + 10)^2 = 55^2 = 3025$$
 <p>Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.</p>
 """
 
+# ╔═╡ 509dac6d-6c15-45cb-8aa9-121d29219d6c
+function problem6()
+	n = 100
+	sum_of_squares = n * (n + 1) * (2n + 1) / 6 # OEIS A000330
+	square_of_sum = (n * (n + 1) / 2)^2 # OEIS A000537
+	square_of_sum - sum_of_squares
+end
+
 # ╔═╡ 1ab07640-84a3-11eb-0b98-cf52e1a3ecd9
 begin
-    submit_answer(nothing; prob_num=6)
+    submit_answer(problem6(); prob_num=6)
 end
 
 # ╔═╡ 1ab07640-84a3-11eb-02fc-5b85de9f0c7b
@@ -148,7 +168,7 @@ html"""
 
 # ╔═╡ 1ab07640-84a3-11eb-1e82-3b8f89cf6c78
 begin
-    submit_answer(nothing; prob_num=7)
+	submit_answer(Primes.prime(10_001); prob_num=7)
 end
 
 # ╔═╡ 1ab07640-84a3-11eb-3322-7db2ad541143
@@ -179,10 +199,36 @@ html"""
 <p>Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is the value of this product?</p>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-1dc2-29726536aa70
-begin
-    submit_answer(nothing; prob_num=8)
+# ╔═╡ 19492f45-c726-4ffc-acbb-5c2d5bbea3f2
+big_number = "73167176531330624919225119674426574742355349194934\
+			96983520312774506326239578318016984801869478851843\
+			85861560789112949495459501737958331952853208805511\
+			12540698747158523863050715693290963295227443043557\
+			66896648950445244523161731856403098711121722383113\
+			62229893423380308135336276614282806444486645238749\
+			30358907296290491560440772390713810515859307960866\
+			70172427121883998797908792274921901699720888093776\
+			65727333001053367881220235421809751254540594752243\
+			52584907711670556013604839586446706324415722155397\
+			53697817977846174064955149290862569321978468622482\
+			83972241375657056057490261407972968652414535100474\
+			82166370484403199890008895243450658541227588666881\
+			16427171479924442928230863465674813919123162824586\
+			17866458359124566529476545682848912883142607690042\
+			24219022671055626321111109370544217506941658960408\
+			07198403850962455444362981230987879927244284909188\
+			84580156166097919133875499200524063689912560717606\
+			05886116467109405077541002256983155200055935729725\
+			71636269561882670428252483600823257530420752963450"
+
+# ╔═╡ 31c9225c-ebb9-4882-bcae-37e6ba83ce49
+function problem8()
+	all_digits = parse.(Int, collect(big_number))
+	maximum(prod(all_digits[n:n+12]) for n = 1:lastindex(all_digits)-13)
 end
+
+# ╔═╡ 1ab07640-84a3-11eb-1dc2-29726536aa70
+submit_answer(problem8(); prob_num=8)
 
 # ╔═╡ 1ab07640-84a3-11eb-3a50-c7cd9853cd18
 html"""
@@ -193,10 +239,13 @@ html"""
 <p>There exists exactly one Pythagorean triplet for which <var>a</var> + <var>b</var> + <var>c</var> = 1000.<br />Find the product <var>abc</var>.</p>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-0895-2d78664c5de4
-begin
-    submit_answer(nothing; prob_num=9)
+# ╔═╡ 71766758-3c34-4514-a58b-e135c5410387
+function problem9()
+	only([a * b * (1000 - a - b) for a = 1:1000 for b = a:1000 if a^2 + b^2 == (1000 - a - b)^2])
 end
+
+# ╔═╡ 1ab07640-84a3-11eb-0895-2d78664c5de4
+submit_answer(problem9(); prob_num=9)
 
 # ╔═╡ 1ab07640-84a3-11eb-24ad-d1f1036a024f
 html"""
@@ -205,10 +254,13 @@ html"""
 <p>Find the sum of all the primes below two million.</p>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-1959-e1f99d85ea56
-begin
-    submit_answer(nothing; prob_num=10)
+# ╔═╡ 29da57e0-b20b-4f4b-9744-76e59f7e0429
+function problem10()
+	sum(Primes.primes(2_000_000))
 end
+
+# ╔═╡ 1ab07640-84a3-11eb-1959-e1f99d85ea56
+submit_answer(problem10(); prob_num=10)
 
 # ╔═╡ 1ab07640-84a3-11eb-00dd-3bc11cde9212
 html"""
@@ -239,10 +291,48 @@ html"""
 <p>What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?</p>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-333e-7d4e71d389f8
-begin
-    submit_answer(nothing; prob_num=11)
+# ╔═╡ c97eb25b-d76b-4684-bc5f-cd5be93bf673
+raw_grid11 = """
+    08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
+    49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
+    81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
+    52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91
+    22 31 16 71 51 67 63 89 41 92 36 54 22 40 40 28 66 33 13 80
+    24 47 32 60 99 03 45 02 44 75 33 53 78 36 84 20 35 17 12 50
+    32 98 81 28 64 23 67 10 26 38 40 67 59 54 70 66 18 38 64 70
+    67 26 20 68 02 62 12 20 95 63 94 39 63 08 40 91 66 49 94 21
+    24 55 58 05 66 73 99 26 97 17 78 78 96 83 14 88 34 89 63 72
+    21 36 23 09 75 00 76 44 20 45 35 14 00 61 33 97 34 31 33 95
+    78 17 53 28 22 75 31 67 15 94 03 80 04 62 16 14 09 53 56 92
+    16 39 05 42 96 35 31 47 55 58 88 24 00 17 54 24 36 29 85 57
+    86 56 00 48 35 71 89 07 05 44 44 37 44 60 21 58 51 54 17 58
+    19 80 81 68 05 94 47 69 28 73 92 13 86 52 17 77 04 89 55 40
+    04 52 08 83 97 35 99 16 07 97 57 32 16 26 26 79 33 27 98 66
+    88 36 68 87 57 62 20 72 03 46 33 67 46 55 12 32 63 93 53 69
+    04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36
+    20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
+    20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
+    01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
+
+# ╔═╡ c581c4a8-de8b-4971-a8c3-09541f9c28c2
+function best_product(xs)
+    maximum(prod.([xs[n:n+3] for n = 1:length(xs)-3]))
 end
+
+# ╔═╡ 365656ac-a215-40fa-bf6f-804c73317667
+function problem11()
+	numbers = parse.(Int, stack(split.(split(raw_grid11, "\n"))))
+
+	rows = eachrow(numbers)
+	cols = eachcol(numbers)
+	diagonals1 = filter(xs -> length(xs) >= 4, [numbers[diagind(numbers, n)] for n = -size(numbers)[1]+1:size(numbers)[1]-1])
+	diagonals2 = filter(xs -> length(xs) >= 4, [reverse(numbers, dims=1)[diagind(numbers, n)] for n = -size(numbers)[1]+1:size(numbers)[1]-1])
+
+	maximum(best_product, [rows..., cols..., diagonals1..., diagonals2...])
+end
+
+# ╔═╡ 1ab07640-84a3-11eb-333e-7d4e71d389f8
+submit_answer(problem11(); prob_num=11)
 
 # ╔═╡ 1ab07640-84a3-11eb-3dd3-ed507786a57e
 html"""
@@ -255,10 +345,13 @@ html"""
 <p>What is the value of the first triangle number to have over five hundred divisors?</p>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-1d3a-d798672ed275
-begin
-    submit_answer(nothing; prob_num=12)
+# ╔═╡ fef8676c-39ed-4553-840b-3e9e9582202c
+function problem12()
+	Iterators.first(Iterators.dropwhile(n -> length(Primes.divisors(n)) <= 500, (n * (n + 1) ÷ 2 for n = Iterators.countfrom(1, 1))))
 end
+
+# ╔═╡ 1ab07640-84a3-11eb-1d3a-d798672ed275
+submit_answer(problem12(); prob_num=12)
 
 # ╔═╡ 1ab07640-84a3-11eb-3f21-0f49d025b371
 html"""
@@ -367,10 +460,115 @@ html"""
 53503534226472524250874054075591789781264330331690<br /></div>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-0489-ab8bed8f19e9
-begin
-    submit_answer(nothing; prob_num=13)
+# ╔═╡ 71470142-db1e-4eb5-8dbc-07dc2949f7a6
+raw_data13 = """37107287533902102798797998220837590246510135740250
+46376937677490009712648124896970078050417018260538
+74324986199524741059474233309513058123726617309629
+91942213363574161572522430563301811072406154908250
+23067588207539346171171980310421047513778063246676
+89261670696623633820136378418383684178734361726757
+28112879812849979408065481931592621691275889832738
+44274228917432520321923589422876796487670272189318
+47451445736001306439091167216856844588711603153276
+70386486105843025439939619828917593665686757934951
+62176457141856560629502157223196586755079324193331
+64906352462741904929101432445813822663347944758178
+92575867718337217661963751590579239728245598838407
+58203565325359399008402633568948830189458628227828
+80181199384826282014278194139940567587151170094390
+35398664372827112653829987240784473053190104293586
+86515506006295864861532075273371959191420517255829
+71693888707715466499115593487603532921714970056938
+54370070576826684624621495650076471787294438377604
+53282654108756828443191190634694037855217779295145
+36123272525000296071075082563815656710885258350721
+45876576172410976447339110607218265236877223636045
+17423706905851860660448207621209813287860733969412
+81142660418086830619328460811191061556940512689692
+51934325451728388641918047049293215058642563049483
+62467221648435076201727918039944693004732956340691
+15732444386908125794514089057706229429197107928209
+55037687525678773091862540744969844508330393682126
+18336384825330154686196124348767681297534375946515
+80386287592878490201521685554828717201219257766954
+78182833757993103614740356856449095527097864797581
+16726320100436897842553539920931837441497806860984
+48403098129077791799088218795327364475675590848030
+87086987551392711854517078544161852424320693150332
+59959406895756536782107074926966537676326235447210
+69793950679652694742597709739166693763042633987085
+41052684708299085211399427365734116182760315001271
+65378607361501080857009149939512557028198746004375
+35829035317434717326932123578154982629742552737307
+94953759765105305946966067683156574377167401875275
+88902802571733229619176668713819931811048770190271
+25267680276078003013678680992525463401061632866526
+36270218540497705585629946580636237993140746255962
+24074486908231174977792365466257246923322810917141
+91430288197103288597806669760892938638285025333403
+34413065578016127815921815005561868836468420090470
+23053081172816430487623791969842487255036638784583
+11487696932154902810424020138335124462181441773470
+63783299490636259666498587618221225225512486764533
+67720186971698544312419572409913959008952310058822
+95548255300263520781532296796249481641953868218774
+76085327132285723110424803456124867697064507995236
+37774242535411291684276865538926205024910326572967
+23701913275725675285653248258265463092207058596522
+29798860272258331913126375147341994889534765745501
+18495701454879288984856827726077713721403798879715
+38298203783031473527721580348144513491373226651381
+34829543829199918180278916522431027392251122869539
+40957953066405232632538044100059654939159879593635
+29746152185502371307642255121183693803580388584903
+41698116222072977186158236678424689157993532961922
+62467957194401269043877107275048102390895523597457
+23189706772547915061505504953922979530901129967519
+86188088225875314529584099251203829009407770775672
+11306739708304724483816533873502340845647058077308
+82959174767140363198008187129011875491310547126581
+97623331044818386269515456334926366572897563400500
+42846280183517070527831839425882145521227251250327
+55121603546981200581762165212827652751691296897789
+32238195734329339946437501907836945765883352399886
+75506164965184775180738168837861091527357929701337
+62177842752192623401942399639168044983993173312731
+32924185707147349566916674687634660915035914677504
+99518671430235219628894890102423325116913619626622
+73267460800591547471830798392868535206946944540724
+76841822524674417161514036427982273348055556214818
+97142617910342598647204516893989422179826088076852
+87783646182799346313767754307809363333018982642090
+10848802521674670883215120185883543223812876952786
+71329612474782464538636993009049310363619763878039
+62184073572399794223406235393808339651327408011116
+66627891981488087797941876876144230030984490851411
+60661826293682836764744779239180335110989069790714
+85786944089552990653640447425576083659976645795096
+66024396409905389607120198219976047599490197230297
+64913982680032973156037120041377903785566085089252
+16730939319872750275468906903707539413042652315011
+94809377245048795150954100921645863754710598436791
+78639167021187492431995700641917969777599028300699
+15368713711936614952811305876380278410754449733078
+40789923115535562561142322423255033685442488917353
+44889911501440648020369068063960672322193204149535
+41503128880339536053299340368006977710650566631954
+81234880673210146739058568557934581403627822703280
+82616570773948327592232845941706525094512325230608
+22918802058777319719839450180888072429661980811197
+77158542502016545090413245809786882778948721859617
+72107838435069186155435662884062257473692284509516
+20849603980134001723930671666823555245252804609722
+53503534226472524250874054075591789781264330331690"""
+
+# ╔═╡ 17c4de9b-27cc-4dbe-93ca-6cb78ca32784
+function problem13()
+	parse(Int, string(sum(parse.(BigInt, split(raw_data13, "\n"))))[1:10])
 end
+
+# ╔═╡ 1ab07640-84a3-11eb-0489-ab8bed8f19e9
+submit_answer(problem13(); prob_num=13)
 
 # ╔═╡ 1ab07640-84a3-11eb-08bc-d1c0e0852d3e
 html"""
@@ -384,10 +582,24 @@ html"""
 <p class="note"><b>NOTE:</b> Once the chain starts the terms are allowed to go above one million.</p>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-1c7d-dd74b1ab83c6
-begin
-    submit_answer(nothing; prob_num=14)
+# ╔═╡ 41b56cbb-93fb-471b-9d7c-ae4810195c46
+function collatz(n)
+    i = 1
+    while n > 1
+        iseven(n) ? n = n ÷ 2 : n = 3n + 1
+        i += 1
+    end
+    i
 end
+
+# ╔═╡ 0d4115de-4277-427e-82c3-e123f143f05d
+function problem14() 
+	range = 1:999_999
+	sort(collect(zip(range, collatz.(range))), by=last, rev=true)[1][1]
+end
+
+# ╔═╡ 1ab07640-84a3-11eb-1c7d-dd74b1ab83c6
+submit_answer(problem14(); prob_num=14)
 
 # ╔═╡ 1ab07640-84a3-11eb-1e56-0db8ff483993
 html"""
@@ -399,9 +611,7 @@ html"""
 """
 
 # ╔═╡ 1ab07640-84a3-11eb-2a0f-bd502118fafe
-begin
-    submit_answer(nothing; prob_num=15)
-end
+submit_answer(binomial(40, 20); prob_num=15)
 
 # ╔═╡ 1ab07640-84a3-11eb-161a-ef12a7c6e33f
 html"""
@@ -409,11 +619,6 @@ html"""
 <p>2<sup>15</sup> = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.</p>
 <p>What is the sum of the digits of the number 2<sup>1000</sup>?</p>
 """
-
-# ╔═╡ 1ab07640-84a3-11eb-2592-1db1b210bac4
-begin
-    submit_answer(nothing; prob_num=16)
-end
 
 # ╔═╡ 1ab07640-84a3-11eb-0648-2fe06f8f6900
 html"""
@@ -423,10 +628,22 @@ html"""
 <br /><p class="note"><b>NOTE:</b> Do not count spaces or hyphens. For example, 342 (three hundred and forty-two) contains 23 letters and 115 (one hundred and fifteen) contains 20 letters. The use of "and" when writing out numbers is in compliance with British usage.</p>
 """
 
-# ╔═╡ 1ab07640-84a3-11eb-151a-2d1e2ec62800
-begin
-    submit_answer(nothing; prob_num=17)
+# ╔═╡ 8b89b3f2-6005-480b-ba86-fa10304b2028
+import SpelledOut
+
+# ╔═╡ c250241e-0901-47bf-aabc-685c50e63c34
+function number_of_letters(n)
+    name = SpelledOut.spelled_out(n, lang=:en_GB)
+    length(replace(name, r"[^a-z]" => s""))
 end
+
+# ╔═╡ efb0a6f0-c759-4289-8d5c-2ff7b3c6ca4e
+function problem17() 
+	sum(number_of_letters, 1:1000)
+end
+
+# ╔═╡ 1ab07640-84a3-11eb-151a-2d1e2ec62800
+submit_answer(problem17(); prob_num=17)
 
 # ╔═╡ 1ab2e740-84a3-11eb-3766-e3d3ede36a7d
 html"""
@@ -455,10 +672,39 @@ html"""
 <p class="note"><b>NOTE:</b> As there are only 16384 routes, it is possible to solve this problem by trying every route. However, <a href="https://projecteuler.net/problem=67">Problem 67</a>, is the same challenge with a triangle containing one-hundred rows; it cannot be solved by brute force, and requires a clever method! ;o)</p>
 """
 
-# ╔═╡ 1ab2e740-84a3-11eb-2ff4-b59cfe613cc7
-begin
-    submit_answer(nothing; prob_num=18)
+# ╔═╡ 7f938b9e-2aa0-4845-bae1-a4d7099c204e
+raw_pyramid18 = """75
+95 64
+17 47 82
+18 35 87 10
+20 04 82 47 65
+19 01 23 75 03 34
+88 02 77 73 07 63 67
+99 65 04 28 06 16 70 92
+41 41 26 56 83 40 80 70 33
+41 48 72 33 47 32 37 16 94 29
+53 71 44 65 25 43 91 52 97 51 14
+70 11 33 28 77 73 17 78 39 68 17 57
+91 71 52 38 17 14 91 43 58 50 27 29 48
+63 66 04 68 89 53 67 30 73 16 69 87 40 31
+04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"""
+
+# ╔═╡ 88a98cf3-afe2-4d68-bf6d-24a73391ebeb
+function problem18()
+	starting_pyramid = reverse(map(row -> parse.(Int, row), split.(split(raw_pyramid18, "\n"))))
+
+	pyramid = starting_pyramid
+	while length(pyramid) > 1
+	    next_row = popfirst!(pyramid)
+	    best_node = [max(next_row[i], next_row[i+1]) for i = 1:length(next_row)-1]
+	    pyramid[1] += best_node
+	end
+
+	answer = pyramid[1][1]
 end
+
+# ╔═╡ 1ab2e740-84a3-11eb-2ff4-b59cfe613cc7
+submit_answer(problem18(); prob_num=18)
 
 # ╔═╡ 1ab2e740-84a3-11eb-1290-211cf8e856f7
 html"""
@@ -475,10 +721,13 @@ And on leap years, twenty-nine.</li>
 </ul><p>How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?</p>
 """
 
-# ╔═╡ 1ab2e740-84a3-11eb-13a3-2d233a946e34
-begin
-    submit_answer(nothing; prob_num=19)
+# ╔═╡ 357e7bc7-bb26-4bc2-819c-4c36fba7fb83
+function problem19() 
+	count(x -> dayofweek(x) == 7, Date(1901, 1, 1):Month(1):Date(2000, 12, 31))
 end
+
+# ╔═╡ 1ab2e740-84a3-11eb-13a3-2d233a946e34
+submit_answer(problem19(); prob_num=19)
 
 # ╔═╡ 1ab2e740-84a3-11eb-0201-d1b0990cfcfb
 html"""
@@ -487,11 +736,6 @@ html"""
 <p>For example, 10! = 10 × 9 × ... × 3 × 2 × 1 = 3628800,<br />and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.</p>
 <p>Find the sum of the digits in the number 100!</p>
 """
-
-# ╔═╡ 1ab2e740-84a3-11eb-0dfb-f71947df2c91
-begin
-    submit_answer(nothing; prob_num=20)
-end
 
 # ╔═╡ 1ab2e740-84a3-11eb-2017-373817045dec
 html"""
@@ -502,10 +746,25 @@ If d(<i>a</i>) = <i>b</i> and d(<i>b</i>) = <i>a</i>, where <i>a</i> ≠ <i>b</i
 <p>Evaluate the sum of all the amicable numbers under 10000.</p>
 """
 
-# ╔═╡ 1ab2e740-84a3-11eb-0924-29b745c77941
-begin
-    submit_answer(nothing; prob_num=21)
+# ╔═╡ 71d742a0-f330-4688-a5c6-c9a4a6ad4f9e
+function problem21()
+	amicable = Int[]
+
+	for n = 1:9999
+	    if n ∈ amicable
+	        continue
+	    end
+	    aliquot = (n |> Primes.divisors |> sum) - n
+	    if n != aliquot && n == (aliquot |> Primes.divisors |> sum) - aliquot
+	        push!(amicable, n, aliquot)
+	    end
+	end
+	
+	sum(amicable)
 end
+
+# ╔═╡ 1ab2e740-84a3-11eb-0924-29b745c77941
+submit_answer(problem21(); prob_num=21)
 
 # ╔═╡ 1ab2e740-84a3-11eb-3ec9-c1bec150e944
 html"""
@@ -515,10 +774,31 @@ html"""
 <p>What is the total of all the name scores in the file?</p>
 """
 
-# ╔═╡ 1ab2e740-84a3-11eb-1b3f-4bbaba70ca5a
+# ╔═╡ 409df7bf-b15d-4f77-8529-68371641b3ac
 begin
-    submit_answer(nothing; prob_num=22)
+	file = open("project/resources/p022_names.txt")
+	names = read(file, String)
+	close(file)
 end
+
+# ╔═╡ 0eba99f9-dca6-49c0-a2cf-2acdedb695ad
+function letter_value(c)
+    c - 'A' + 1
+end
+
+# ╔═╡ fda4ac86-fa13-49ba-bf49-66f1d4f50f29
+function name_value(name)
+    sum(letter_value.(collect(name)))
+end
+
+# ╔═╡ abff7779-c513-4abc-919a-bccec56fc61d
+function problem22()
+	sorted_names = sort(strip.(split(names, ","), '\"'))
+	sum(i * name_value(n) for (i, n) in enumerate(sorted_names))
+end
+
+# ╔═╡ 1ab2e740-84a3-11eb-1b3f-4bbaba70ca5a
+submit_answer(problem22(); prob_num=22)
 
 # ╔═╡ 1ab2e740-84a3-11eb-2fe4-618282f82d18
 html"""
@@ -530,10 +810,19 @@ html"""
 <p>Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.</p>
 """
 
-# ╔═╡ 1ab2e740-84a3-11eb-0f9e-fd3dfc2db4bb
-begin
-    submit_answer(nothing; prob_num=23)
+# ╔═╡ baafaddc-5cb4-4aec-877f-8d364a521f8c
+abundant = [n for n = 1:28123 if n < sum(Primes.divisors(n)) - n]
+
+# ╔═╡ f607ba80-b790-4f43-b49c-732307bdcce5
+abundant_sums = Set(a + b for a in abundant for b in abundant)
+
+# ╔═╡ a29f21e6-673e-497e-a215-68d4c4cd71cc
+function problem23()
+	sum(setdiff(1:28123, abundant_sums))
 end
+
+# ╔═╡ 1ab2e740-84a3-11eb-0f9e-fd3dfc2db4bb
+submit_answer(problem23(); prob_num=23)
 
 # ╔═╡ 1ab2e740-84a3-11eb-0bdd-e16eadadbc84
 html"""
@@ -543,10 +832,25 @@ html"""
 <p>What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?</p>
 """
 
-# ╔═╡ 1ab2e740-84a3-11eb-07dc-75eec1a30856
-begin
-    submit_answer(nothing; prob_num=24)
+# ╔═╡ c8810dd4-4d47-421e-9d6a-9494e3d90122
+digits = collect(0:9)
+
+# ╔═╡ 1ab07640-84a3-11eb-2592-1db1b210bac4
+submit_answer(big(2)^1000 |> digits |> sum; prob_num=16)
+
+# ╔═╡ 20f831c3-4814-4f3c-bdaa-5d81412bd6bb
+function problem20()
+	factorial(big(100)) |> digits |> sum
 end
+
+# ╔═╡ 1ab2e740-84a3-11eb-0dfb-f71947df2c91
+submit_answer(problem20(); prob_num=20)
+
+# ╔═╡ 3f0be77d-239f-404c-b34c-72e7d54a3222
+problem24 = parse(Int, join(string.(nthperm(digits, 1_000_000))))
+
+# ╔═╡ 1ab2e740-84a3-11eb-07dc-75eec1a30856
+submit_answer(problem24; prob_num=24)
 
 # ╔═╡ 1ab2e740-84a3-11eb-0fdf-b748c7b42fc4
 html"""
@@ -570,18 +874,36 @@ F<sub>12</sub> = 144</blockquote>
 <p>What is the index of the first term in the Fibonacci sequence to contain 1000 digits?</p>
 """
 
+# ╔═╡ 65a32173-91e8-4167-ac48-0c3a605070ee
+@memoize function fib(n)
+	n == 1 ? big(1) :
+	n == 2 ? big(1) :
+	fib(n-1) + fib(n-2)
+end
+
+# ╔═╡ f2f669e8-cf9b-4047-8c3d-87a81fef4e96
+problem25 = first(n for n = Iterators.countfrom() if log10(fib(n)) > 999)
+
 # ╔═╡ 1ab2e740-84a3-11eb-2ed0-7d9823dad862
 begin
-    submit_answer(nothing; prob_num=25)
+    submit_answer(problem25; prob_num=25)
 end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
+Combinatorics = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Memoization = "6fafb56a-5788-4b4e-91ca-c0cea6611c73"
 Primes = "27ebfcd6-29c5-5fa9-bf4b-fb8fc14df3ae"
+SpelledOut = "4728c690-e668-4265-bc0d-51a8c0f93067"
 
 [compat]
+Combinatorics = "~1.0.3"
+Memoization = "~0.2.2"
 Primes = "~0.5.7"
+SpelledOut = "~1.2.4"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -590,18 +912,283 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.12.0"
 manifest_format = "2.0"
-project_hash = "5cfa1418f1e5422dcaaab16d0d33e34647e491de"
+project_hash = "6bd951ca44be3633c47a0309396c42a7314cd3e7"
+
+[[deps.ArgTools]]
+uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
+version = "1.1.2"
+
+[[deps.Artifacts]]
+uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
+version = "1.11.0"
+
+[[deps.Base64]]
+uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
+version = "1.11.0"
+
+[[deps.Combinatorics]]
+git-tree-sha1 = "8010b6bb3388abe68d95743dcbea77650bb2eddf"
+uuid = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
+version = "1.0.3"
+
+[[deps.CompilerSupportLibraries_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
+version = "1.3.0+1"
+
+[[deps.Dates]]
+deps = ["Printf"]
+uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
+version = "1.11.0"
+
+[[deps.DecFP]]
+deps = ["DecFP_jll", "Printf", "Random", "SpecialFunctions"]
+git-tree-sha1 = "88e521a871a1b11488a1f48b8c085b4be8f71be5"
+uuid = "55939f99-70c6-5e9b-8bb0-5071ed7d61fd"
+version = "1.4.1"
+
+[[deps.DecFP_jll]]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
+git-tree-sha1 = "e9a8da19f847bbfed4076071f6fef8665a30d9e5"
+uuid = "47200ebd-12ce-5be5-abb7-8e082af23329"
+version = "2.0.3+1"
+
+[[deps.DocStringExtensions]]
+git-tree-sha1 = "7442a5dfe1ebb773c29cc2962a8980f47221d76c"
+uuid = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
+version = "0.9.5"
+
+[[deps.Downloads]]
+deps = ["ArgTools", "FileWatching", "LibCURL", "NetworkOptions"]
+uuid = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
+version = "1.6.0"
+
+[[deps.FileWatching]]
+uuid = "7b1f6079-737a-58dc-b8bc-7a2ca5c1b5ee"
+version = "1.11.0"
+
+[[deps.Format]]
+git-tree-sha1 = "9c68794ef81b08086aeb32eeaf33531668d5f5fc"
+uuid = "1fa38f19-a742-5d3f-a2b9-30dd87b9d5f8"
+version = "1.3.7"
 
 [[deps.IntegerMathUtils]]
 git-tree-sha1 = "4c1acff2dc6b6967e7e750633c50bc3b8d83e617"
 uuid = "18e54dd8-cb9d-406c-a71d-865a43cbb235"
 version = "0.1.3"
 
+[[deps.IrrationalConstants]]
+git-tree-sha1 = "e2222959fbc6c19554dc15174c81bf7bf3aa691c"
+uuid = "92d709cd-6900-40b7-9082-c6be49f344b6"
+version = "0.2.4"
+
+[[deps.JLLWrappers]]
+deps = ["Artifacts", "Preferences"]
+git-tree-sha1 = "0533e564aae234aff59ab625543145446d8b6ec2"
+uuid = "692b3bcd-3c85-4b1f-b108-f13ce0eb3210"
+version = "1.7.1"
+
+[[deps.JuliaSyntaxHighlighting]]
+deps = ["StyledStrings"]
+uuid = "ac6e5ff7-fb65-4e79-a425-ec3bc9c03011"
+version = "1.12.0"
+
+[[deps.LibCURL]]
+deps = ["LibCURL_jll", "MozillaCACerts_jll"]
+uuid = "b27032c2-a3e7-50c8-80cd-2d36dbcbfd21"
+version = "0.6.4"
+
+[[deps.LibCURL_jll]]
+deps = ["Artifacts", "LibSSH2_jll", "Libdl", "OpenSSL_jll", "Zlib_jll", "nghttp2_jll"]
+uuid = "deac9b47-8bc7-5906-a0fe-35ac56dc84c0"
+version = "8.11.1+1"
+
+[[deps.LibGit2]]
+deps = ["LibGit2_jll", "NetworkOptions", "Printf", "SHA"]
+uuid = "76f85450-5226-5b5a-8eaa-529ad045b433"
+version = "1.11.0"
+
+[[deps.LibGit2_jll]]
+deps = ["Artifacts", "LibSSH2_jll", "Libdl", "OpenSSL_jll"]
+uuid = "e37daf67-58a4-590a-8e99-b0245dd2ffc5"
+version = "1.9.0+0"
+
+[[deps.LibSSH2_jll]]
+deps = ["Artifacts", "Libdl", "OpenSSL_jll"]
+uuid = "29816b5a-b9ab-546f-933c-edad1886dfa8"
+version = "1.11.3+1"
+
+[[deps.Libdl]]
+uuid = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
+version = "1.11.0"
+
+[[deps.LinearAlgebra]]
+deps = ["Libdl", "OpenBLAS_jll", "libblastrampoline_jll"]
+uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+version = "1.12.0"
+
+[[deps.LogExpFunctions]]
+deps = ["DocStringExtensions", "IrrationalConstants", "LinearAlgebra"]
+git-tree-sha1 = "13ca9e2586b89836fd20cccf56e57e2b9ae7f38f"
+uuid = "2ab3a3ac-af41-5b50-aa03-7779005ae688"
+version = "0.3.29"
+
+    [deps.LogExpFunctions.extensions]
+    LogExpFunctionsChainRulesCoreExt = "ChainRulesCore"
+    LogExpFunctionsChangesOfVariablesExt = "ChangesOfVariables"
+    LogExpFunctionsInverseFunctionsExt = "InverseFunctions"
+
+    [deps.LogExpFunctions.weakdeps]
+    ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
+    ChangesOfVariables = "9e997f8a-9a97-42d5-a9f1-ce6bfc15e2c0"
+    InverseFunctions = "3587e190-3f89-42d0-90ee-14403ec27112"
+
+[[deps.Logging]]
+uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
+version = "1.11.0"
+
+[[deps.MacroTools]]
+git-tree-sha1 = "1e0228a030642014fe5cfe68c2c0a818f9e3f522"
+uuid = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
+version = "0.5.16"
+
+[[deps.Markdown]]
+deps = ["Base64", "JuliaSyntaxHighlighting", "StyledStrings"]
+uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
+version = "1.11.0"
+
+[[deps.Memoization]]
+deps = ["MacroTools"]
+git-tree-sha1 = "7dbf904fa6c4447bd1f1d316886bfbe29feacf45"
+uuid = "6fafb56a-5788-4b4e-91ca-c0cea6611c73"
+version = "0.2.2"
+
+[[deps.MozillaCACerts_jll]]
+uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
+version = "2025.5.20"
+
+[[deps.NetworkOptions]]
+uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
+version = "1.3.0"
+
+[[deps.OpenBLAS_jll]]
+deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
+uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
+version = "0.3.29+0"
+
+[[deps.OpenLibm_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "05823500-19ac-5b8b-9628-191a04bc5112"
+version = "0.8.7+0"
+
+[[deps.OpenSSL_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "458c3c95-2e84-50aa-8efc-19380b2a3a95"
+version = "3.5.1+0"
+
+[[deps.OpenSpecFun_jll]]
+deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "1346c9208249809840c91b26703912dff463d335"
+uuid = "efe28fd5-8261-553b-a9e1-b2916fc3738e"
+version = "0.5.6+0"
+
+[[deps.Pkg]]
+deps = ["Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "Random", "SHA", "TOML", "Tar", "UUIDs", "p7zip_jll"]
+uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+version = "1.12.0"
+
+    [deps.Pkg.extensions]
+    REPLExt = "REPL"
+
+    [deps.Pkg.weakdeps]
+    REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
+
+[[deps.Preferences]]
+deps = ["TOML"]
+git-tree-sha1 = "0f27480397253da18fe2c12a4ba4eb9eb208bf3d"
+uuid = "21216c6a-2e73-6563-6e65-726566657250"
+version = "1.5.0"
+
 [[deps.Primes]]
 deps = ["IntegerMathUtils"]
 git-tree-sha1 = "25cdd1d20cd005b52fc12cb6be3f75faaf59bb9b"
 uuid = "27ebfcd6-29c5-5fa9-bf4b-fb8fc14df3ae"
 version = "0.5.7"
+
+[[deps.Printf]]
+deps = ["Unicode"]
+uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+version = "1.11.0"
+
+[[deps.Random]]
+deps = ["SHA"]
+uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+version = "1.11.0"
+
+[[deps.SHA]]
+uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
+version = "0.7.0"
+
+[[deps.SpecialFunctions]]
+deps = ["IrrationalConstants", "LogExpFunctions", "OpenLibm_jll", "OpenSpecFun_jll"]
+git-tree-sha1 = "f2685b435df2613e25fc10ad8c26dddb8640f547"
+uuid = "276daf66-3868-5448-9aa4-cd146d93841b"
+version = "2.6.1"
+
+    [deps.SpecialFunctions.extensions]
+    SpecialFunctionsChainRulesCoreExt = "ChainRulesCore"
+
+    [deps.SpecialFunctions.weakdeps]
+    ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
+
+[[deps.SpelledOut]]
+deps = ["DecFP", "Format"]
+git-tree-sha1 = "752abd32cd81f84a550a23f97dd5daf77dd73dfc"
+uuid = "4728c690-e668-4265-bc0d-51a8c0f93067"
+version = "1.2.4"
+
+[[deps.StyledStrings]]
+uuid = "f489334b-da3d-4c2e-b8f0-e476e12c162b"
+version = "1.11.0"
+
+[[deps.TOML]]
+deps = ["Dates"]
+uuid = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
+version = "1.0.3"
+
+[[deps.Tar]]
+deps = ["ArgTools", "SHA"]
+uuid = "a4e569a6-e804-4fa4-b0f3-eef7a1d5b13e"
+version = "1.10.0"
+
+[[deps.UUIDs]]
+deps = ["Random", "SHA"]
+uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
+version = "1.11.0"
+
+[[deps.Unicode]]
+uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
+version = "1.11.0"
+
+[[deps.Zlib_jll]]
+deps = ["Libdl"]
+uuid = "83775a58-1f1d-513f-b197-d71354ab007a"
+version = "1.3.1+2"
+
+[[deps.libblastrampoline_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "8e850b90-86db-534c-a0d3-1478176c7d93"
+version = "5.13.1+1"
+
+[[deps.nghttp2_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
+version = "1.64.0+1"
+
+[[deps.p7zip_jll]]
+deps = ["Artifacts", "Libdl"]
+uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
+version = "17.5.0+2"
 """
 
 # ╔═╡ Cell order:
@@ -628,44 +1215,80 @@ version = "0.5.7"
 # ╠═8975c24b-4da9-42b5-bd5c-b52887c3d867
 # ╠═1ab07640-84a3-11eb-074d-29023f790f03
 # ╟─1ab07640-84a3-11eb-10df-f5cad66f6b6b
+# ╠═509dac6d-6c15-45cb-8aa9-121d29219d6c
 # ╠═1ab07640-84a3-11eb-0b98-cf52e1a3ecd9
 # ╟─1ab07640-84a3-11eb-02fc-5b85de9f0c7b
 # ╠═1ab07640-84a3-11eb-1e82-3b8f89cf6c78
 # ╟─1ab07640-84a3-11eb-3322-7db2ad541143
+# ╠═19492f45-c726-4ffc-acbb-5c2d5bbea3f2
+# ╠═31c9225c-ebb9-4882-bcae-37e6ba83ce49
 # ╠═1ab07640-84a3-11eb-1dc2-29726536aa70
 # ╟─1ab07640-84a3-11eb-3a50-c7cd9853cd18
+# ╠═71766758-3c34-4514-a58b-e135c5410387
 # ╠═1ab07640-84a3-11eb-0895-2d78664c5de4
 # ╟─1ab07640-84a3-11eb-24ad-d1f1036a024f
+# ╠═29da57e0-b20b-4f4b-9744-76e59f7e0429
 # ╠═1ab07640-84a3-11eb-1959-e1f99d85ea56
 # ╟─1ab07640-84a3-11eb-00dd-3bc11cde9212
+# ╠═c97eb25b-d76b-4684-bc5f-cd5be93bf673
+# ╠═c581c4a8-de8b-4971-a8c3-09541f9c28c2
+# ╠═54b819bd-55dd-42a6-91fa-b25ff727de8b
+# ╠═365656ac-a215-40fa-bf6f-804c73317667
 # ╠═1ab07640-84a3-11eb-333e-7d4e71d389f8
 # ╟─1ab07640-84a3-11eb-3dd3-ed507786a57e
+# ╠═fef8676c-39ed-4553-840b-3e9e9582202c
 # ╠═1ab07640-84a3-11eb-1d3a-d798672ed275
 # ╟─1ab07640-84a3-11eb-3f21-0f49d025b371
+# ╟─71470142-db1e-4eb5-8dbc-07dc2949f7a6
+# ╠═17c4de9b-27cc-4dbe-93ca-6cb78ca32784
 # ╠═1ab07640-84a3-11eb-0489-ab8bed8f19e9
 # ╟─1ab07640-84a3-11eb-08bc-d1c0e0852d3e
+# ╠═41b56cbb-93fb-471b-9d7c-ae4810195c46
+# ╠═0d4115de-4277-427e-82c3-e123f143f05d
 # ╠═1ab07640-84a3-11eb-1c7d-dd74b1ab83c6
 # ╟─1ab07640-84a3-11eb-1e56-0db8ff483993
 # ╠═1ab07640-84a3-11eb-2a0f-bd502118fafe
 # ╟─1ab07640-84a3-11eb-161a-ef12a7c6e33f
 # ╠═1ab07640-84a3-11eb-2592-1db1b210bac4
 # ╟─1ab07640-84a3-11eb-0648-2fe06f8f6900
+# ╠═8b89b3f2-6005-480b-ba86-fa10304b2028
+# ╠═c250241e-0901-47bf-aabc-685c50e63c34
+# ╠═efb0a6f0-c759-4289-8d5c-2ff7b3c6ca4e
 # ╠═1ab07640-84a3-11eb-151a-2d1e2ec62800
 # ╟─1ab2e740-84a3-11eb-3766-e3d3ede36a7d
+# ╠═7f938b9e-2aa0-4845-bae1-a4d7099c204e
+# ╠═88a98cf3-afe2-4d68-bf6d-24a73391ebeb
 # ╠═1ab2e740-84a3-11eb-2ff4-b59cfe613cc7
 # ╟─1ab2e740-84a3-11eb-1290-211cf8e856f7
+# ╠═5c4b90c1-4ac0-4a80-a0a1-0395034d747c
+# ╠═357e7bc7-bb26-4bc2-819c-4c36fba7fb83
 # ╠═1ab2e740-84a3-11eb-13a3-2d233a946e34
 # ╟─1ab2e740-84a3-11eb-0201-d1b0990cfcfb
+# ╠═20f831c3-4814-4f3c-bdaa-5d81412bd6bb
 # ╠═1ab2e740-84a3-11eb-0dfb-f71947df2c91
 # ╟─1ab2e740-84a3-11eb-2017-373817045dec
+# ╠═71d742a0-f330-4688-a5c6-c9a4a6ad4f9e
 # ╠═1ab2e740-84a3-11eb-0924-29b745c77941
 # ╟─1ab2e740-84a3-11eb-3ec9-c1bec150e944
+# ╠═409df7bf-b15d-4f77-8529-68371641b3ac
+# ╠═0eba99f9-dca6-49c0-a2cf-2acdedb695ad
+# ╠═fda4ac86-fa13-49ba-bf49-66f1d4f50f29
+# ╠═abff7779-c513-4abc-919a-bccec56fc61d
 # ╠═1ab2e740-84a3-11eb-1b3f-4bbaba70ca5a
 # ╟─1ab2e740-84a3-11eb-2fe4-618282f82d18
+# ╠═baafaddc-5cb4-4aec-877f-8d364a521f8c
+# ╠═f607ba80-b790-4f43-b49c-732307bdcce5
+# ╠═a29f21e6-673e-497e-a215-68d4c4cd71cc
 # ╠═1ab2e740-84a3-11eb-0f9e-fd3dfc2db4bb
 # ╟─1ab2e740-84a3-11eb-0bdd-e16eadadbc84
+# ╠═e597423d-aa19-4cfa-b676-c5009d01c110
+# ╠═c8810dd4-4d47-421e-9d6a-9494e3d90122
+# ╠═3f0be77d-239f-404c-b34c-72e7d54a3222
 # ╠═1ab2e740-84a3-11eb-07dc-75eec1a30856
 # ╟─1ab2e740-84a3-11eb-0fdf-b748c7b42fc4
+# ╠═9750db60-c460-4a5f-8e4a-6be03999a250
+# ╠═65a32173-91e8-4167-ac48-0c3a605070ee
+# ╠═f2f669e8-cf9b-4047-8c3d-87a81fef4e96
 # ╠═1ab2e740-84a3-11eb-2ed0-7d9823dad862
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
