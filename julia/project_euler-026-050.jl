@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.11
+# v0.20.20
 
 using Markdown
 using InteractiveUtils
@@ -407,11 +407,27 @@ begin
     submit_answer(nothing; prob_num=50)
 end
 
+# ╔═╡ 00000000-0000-0000-0000-000000000001
+PLUTO_PROJECT_TOML_CONTENTS = """
+[deps]
+"""
+
+# ╔═╡ 00000000-0000-0000-0000-000000000002
+PLUTO_MANIFEST_TOML_CONTENTS = """
+# This file is machine-generated - editing it directly is not advised
+
+julia_version = "1.12.0"
+manifest_format = "2.0"
+project_hash = "71853c6197a6a7f222db0f1978c7cb232b87c5ee"
+
+[deps]
+"""
+
 # ╔═╡ Cell order:
 # ╠═1ab55840-84a3-11eb-0b24-8bcce01520f4
 # ╟─1ab55840-84a3-11eb-0d06-bb5d9f576ac1
 # ╠═1ab55840-84a3-11eb-2a1c-e1a0e40a8d60
-# ╟─1ab55840-84a3-11eb-1581-0fa993520c3e
+# ╠═1ab55840-84a3-11eb-1581-0fa993520c3e
 # ╠═1ab55840-84a3-11eb-0e89-d1cc04d4f5d5
 # ╟─1ab55840-84a3-11eb-1b99-07b97224a53c
 # ╠═1ab55840-84a3-11eb-1209-4990258968d5
@@ -459,3 +475,5 @@ end
 # ╠═1ab55840-84a3-11eb-2280-c530f1cf8c1e
 # ╟─1ab55840-84a3-11eb-3978-e3e4257debc9
 # ╠═1ab55840-84a3-11eb-0a62-113dc9999018
+# ╟─00000000-0000-0000-0000-000000000001
+# ╟─00000000-0000-0000-0000-000000000002
