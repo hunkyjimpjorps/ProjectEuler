@@ -28,3 +28,14 @@ fn undigits_loop(numbers: List(Int), base: Int, acc: Int) -> Result(Int, Nil) {
     [digit, ..rest] -> undigits_loop(rest, base, acc * base + digit)
   }
 }
+
+pub fn to_palindrome(n: Int) -> Int {
+  do_reverse(n, 0)
+}
+
+fn do_reverse(n: Int, acc: Int) -> Int {
+  case n {
+    0 -> acc
+    n -> do_reverse(n / 10, acc * 10 + n % 10)
+  }
+}
