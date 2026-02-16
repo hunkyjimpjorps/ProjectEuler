@@ -19,6 +19,6 @@ fn solution() {
   |> yielder.to_list
   |> continued_fraction.to_rational
   |> pair.first
-  |> digits.digits(10)
+  |> digits.to_digits(10)
   |> result.map(int.sum)
 }

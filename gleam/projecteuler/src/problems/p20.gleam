@@ -10,5 +10,5 @@ pub fn main() -> Nil {
 
 fn solution() {
   let assert Ok(n) = maths.factorial(100)
-  n |> digits.digits(10) |> result.map(int.sum)
+  n |> digits.to_digits(10) |> result.map(int.sum)
 }

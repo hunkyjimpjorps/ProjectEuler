@@ -8,7 +8,7 @@ pub fn main() -> Nil {
 }
 
 fn solution() {
-  pow(2, 1000) |> digits.digits(10) |> result.map(int.sum)
+  pow(2, 1000) |> digits.to_digits(10) |> result.map(int.sum)
 }
 
 fn pow(x: Int, n: Int) -> Int {

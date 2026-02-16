@@ -14,7 +14,7 @@ fn solution() {
 }
 
 fn to_words(n: Int) {
-  case digits.digits(n, 10) {
+  case digits.to_digits(n, 10) {
     Error(_) -> Error(Nil)
     Ok(digits) ->
       case digits {

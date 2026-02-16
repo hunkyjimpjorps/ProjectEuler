@@ -1,6 +1,6 @@
 import gleam/int
 
-pub fn digits(x: Int, base: Int) -> Result(List(Int), Nil) {
+pub fn to_digits(x: Int, base: Int) -> Result(List(Int), Nil) {
   case base < 2 {
     True -> Error(Nil)
     False -> Ok(digits_loop(x, base, []))
