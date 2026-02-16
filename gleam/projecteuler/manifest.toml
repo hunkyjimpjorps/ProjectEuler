@@ -17,6 +17,7 @@ packages = [
   { name = "rememo", version = "3.3.0", build_tools = ["gleam"], requirements = ["gleam_erlang", "gleam_javascript", "gleam_otp", "gleam_stdlib", "gtempo", "javascript_mutable_reference"], otp_app = "rememo", source = "hex", outer_checksum = "869FABE76B8FE3566AB39307F77EDA014C230574DA5CCD9B126D9FEBB3AD89DB" },
   { name = "simplifile", version = "2.3.2", build_tools = ["gleam"], requirements = ["filepath", "gleam_stdlib"], otp_app = "simplifile", source = "hex", outer_checksum = "E049B4DACD4D206D87843BCF4C775A50AE0F50A52031A2FFB40C9ED07D6EC70A" },
   { name = "splitter", version = "1.2.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "splitter", source = "hex", outer_checksum = "3DFD6B6C49E61EDAF6F7B27A42054A17CFF6CA2135FF553D0CB61C234D281DD0" },
+  { name = "tote", version = "1.0.2", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "tote", source = "hex", outer_checksum = "A249892E26A53C668897F8D47845B0007EEE07707A1A03437487F0CD5A452CA5" },
 ]
 
 [requirements]
@@ -28,3 +29,4 @@ gtempo = { version = ">= 7.2.4 and < 8.0.0" }
 rememo = { version = ">= 3.3.0 and < 4.0.0" }
 simplifile = { version = ">= 2.3.2 and < 3.0.0" }
 splitter = { version = ">= 1.2.0 and < 2.0.0" }
+tote = { version = ">= 1.0.2 and < 2.0.0" }
