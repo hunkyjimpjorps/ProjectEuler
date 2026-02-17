@@ -29,7 +29,7 @@ fn undigits_loop(numbers: List(Int), base: Int, acc: Int) -> Result(Int, Nil) {
   }
 }
 
-pub fn to_palindrome(n: Int) -> Int {
+pub fn reverse(n: Int) -> Int {
   do_reverse(n, 0)
 }
 

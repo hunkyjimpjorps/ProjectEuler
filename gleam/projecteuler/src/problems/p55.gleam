@@ -16,12 +16,12 @@ fn solution() {
 }
 
 fn is_lychrel(n) {
-  do_lychrel(n + digits.to_palindrome(n), 0)
+  do_lychrel(n + digits.reverse(n), 0)
 }
 
 fn do_lychrel(n, i) {
   use <- bool.guard(i == 50, True)
-  let rev = digits.to_palindrome(n)
+  let rev = digits.reverse(n)
   use <- bool.guard(n == rev, False)
   do_lychrel(n + rev, i + 1)
 }
