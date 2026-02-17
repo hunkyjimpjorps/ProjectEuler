@@ -39,3 +39,10 @@ fn do_reverse(n: Int, acc: Int) -> Int {
     n -> do_reverse(n / 10, acc * 10 + n % 10)
   }
 }
+
+pub fn number_of_digits(n) {
+  case n {
+    0 -> 0
+    n -> 1 + number_of_digits(n / 10)
+  }
+}

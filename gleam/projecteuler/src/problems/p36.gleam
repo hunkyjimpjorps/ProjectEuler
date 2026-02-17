@@ -28,14 +28,7 @@ fn is_double_palindrome(n) {
 }
 
 fn make_palindromes(n) {
-  let len = math.pow(10, number_of_digits(n) - 1)
+  let len = math.pow(10, digits.number_of_digits(n) - 1)
   let suffix = digits.reverse(n)
   #(n * { len * 10 } + suffix, n * len + suffix % len)
-}
-
-fn number_of_digits(n) {
-  case n {
-    0 -> 0
-    n -> 1 + number_of_digits(n / 10)
-  }
 }

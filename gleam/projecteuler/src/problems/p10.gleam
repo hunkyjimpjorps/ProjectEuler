@@ -8,14 +8,17 @@ pub fn main() {
 }
 
 fn solution() {
-  primes_up_to(2_000_000) |> int.sum
+  primes_up_to(1_000_000) |> int.sum
 }
 
 pub fn primes_up_to(upper_bound: Int) -> List(Int) {
   case upper_bound {
     l if l <= 1 -> []
     2 -> [2]
-    l -> range_step(from: 3, to: l, step: 2) |> do_primes_up_to(3, l, [2])
+    l ->
+      range_step(from: 3, to: l, step: 2)
+      |> do_primes_up_to(3, l, [2])
+      |> list.sort(int.compare)
   }
 }
 
