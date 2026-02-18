@@ -1,6 +1,5 @@
 import gleam/bool
 import gleam/int
-import tote/bag
 import utilities/timing
 
 pub fn main() -> Nil {
