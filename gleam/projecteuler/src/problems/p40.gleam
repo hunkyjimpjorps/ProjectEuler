@@ -1,5 +1,4 @@
 import gleam/int
-import gleam/list
 import gleam/yielder
 import utilities/digits
 import utilities/math
