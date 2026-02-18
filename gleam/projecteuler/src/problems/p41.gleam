@@ -14,7 +14,7 @@ pub fn main() -> Nil {
 fn solution() {
   let assert Ok(digits) = maths.list_permutation([7, 6, 5, 4, 3, 2, 1], 7)
   yielder.find_map(digits, fn(xs) {
-    let assert Ok(n) = digits.undigits(xs, 10)
+    let assert Ok(n) = digits.from_digits(xs, 10)
     case maths.is_prime(n) {
       True -> Ok(n)
       False -> Error(Nil)

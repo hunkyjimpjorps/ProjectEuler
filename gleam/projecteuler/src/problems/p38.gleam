@@ -27,7 +27,7 @@ fn do_pandigital(n, i, acc) {
   use <- bool.guard(list.any(next_product, list.contains(acc, _)), Error(Nil))
   let acc = list.append(acc, next_product)
   case list.length(acc) {
-    9 -> acc |> digits.undigits(10)
+    9 -> acc |> digits.from_digits(10)
     _ -> do_pandigital(n, i + 1, acc)
   }
 }

@@ -22,7 +22,7 @@ fn is_circular_prime(n) {
   int.range(0, list.length(digits), [], fn(acc, n) {
     list.drop(digits, n)
     |> list.append(list.take(digits, n))
-    |> digits.undigits(10)
+    |> digits.from_digits(10)
     |> result.unwrap(0)
     |> list.prepend(acc, _)
   })

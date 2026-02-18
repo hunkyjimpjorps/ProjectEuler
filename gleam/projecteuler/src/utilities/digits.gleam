@@ -14,7 +14,7 @@ fn digits_loop(x: Int, base: Int, acc: List(Int)) -> List(Int) {
   }
 }
 
-pub fn undigits(numbers: List(Int), base: Int) -> Result(Int, Nil) {
+pub fn from_digits(numbers: List(Int), base: Int) -> Result(Int, Nil) {
   case base < 2 {
     True -> Error(Nil)
     False -> undigits_loop(numbers, base, 0)
