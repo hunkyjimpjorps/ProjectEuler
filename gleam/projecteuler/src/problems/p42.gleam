@@ -5,6 +5,7 @@ import gleam/result
 import gleam/string
 import simplifile
 import splitter
+import utilities/math
 import utilities/timing
 
 pub fn main() -> Nil {
@@ -12,25 +13,26 @@ pub fn main() -> Nil {
 }
 
 fn solution() {
-  let assert Ok(data) = simplifile.read("./data/22.txt")
+  let assert Ok(data) = simplifile.read("./data/42.txt")
   let scores = letter_scores()
 
-  use acc, pair <- list.fold(parse(data), 0)
-  let #(i, name) = pair
+  use acc, name <- list.fold(parse(data), 0)
   let score =
     name
     |> string.to_graphemes
     |> list.filter_map(dict.get(scores, _))
     |> int.sum
-  acc + score * i
+
+  case math.square_root(8 * score + 1) {
+    Ok(_) -> acc + 1
+    Error(_) -> acc
+  }
 }
 
 fn parse(str) {
   let split_on = splitter.new({ ["\",\"", "\""] })
 
   do_parse(str, [], split_on)
-  |> list.sort(string.compare)
-  |> list.index_map(fn(name, i) { #(i, name) })
 }
 
 fn do_parse(str, acc, splitter) {
@@ -46,8 +48,8 @@ fn letter_scores() {
     string.to_utf_codepoints("A")
     |> list.first
     |> result.map(string.utf_codepoint_to_int)
-  int.range(1, 27, dict.new(), fn(acc, i) {
+  int.range(0, 26, dict.new(), fn(acc, i) {
     let assert Ok(c) = string.utf_codepoint(i + a)
-    dict.insert(acc, [c] |> string.from_utf_codepoints, i)
+    dict.insert(acc, [c] |> string.from_utf_codepoints, i + 1)
   })
 }
