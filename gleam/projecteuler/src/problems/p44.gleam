@@ -36,7 +36,7 @@ fn pentagonal(n: Int) -> Int {
 }
 
 fn is_pentagonal(n: Int) -> Bool {
-  case math.square_root(24 * n + 1) {
+  case math.exact_square_root(24 * n + 1) {
     Ok(n) -> { 1 + n } % 6 == 0
     Error(_) -> False
   }

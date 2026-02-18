@@ -23,14 +23,14 @@ fn triangular(n) {
 }
 
 fn is_pentagonal(t: Int) -> Bool {
-  case math.square_root(24 * t + 1) {
+  case math.exact_square_root(24 * t + 1) {
     Ok(s) -> { 1 + s } % 6 == 0
     Error(_) -> False
   }
 }
 
 fn is_hexagonal(t: Int) -> Bool {
-  case math.square_root(8 * t + 1) {
+  case math.exact_square_root(8 * t + 1) {
     Ok(s) -> { 1 + s } % 4 == 0
     Error(_) -> False
   }

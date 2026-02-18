@@ -23,7 +23,7 @@ fn solution() {
     |> list.filter_map(dict.get(scores, _))
     |> int.sum
 
-  case math.square_root(8 * score + 1) {
+  case math.exact_square_root(8 * score + 1) {
     Ok(_) -> acc + 1
     Error(_) -> acc
   }
