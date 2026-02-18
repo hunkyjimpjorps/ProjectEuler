@@ -9,3 +9,4 @@ pub fn main() -> Nil {
 fn solution() {
   int.range(1, 1001, 0, fn(acc, n) { { acc + math.pow(n, n) } % 10_000_000_000 })
 }
+
