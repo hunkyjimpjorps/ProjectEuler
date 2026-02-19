@@ -3,12 +3,12 @@ import gleam/int
 import gleam/list
 import gleam/result
 import gleam_community/maths
-import problems/p10
 import utilities/digits
+import utilities/primes
 import utilities/timing
 
 pub fn main() -> Nil {
-  let primes = p10.primes_up_to(1_000_000)
+  let primes = primes.up_to(1_000_000)
   timing.run(fn() { solution(primes) })
 }
 

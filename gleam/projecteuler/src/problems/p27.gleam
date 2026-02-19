@@ -1,7 +1,7 @@
 import gleam/int
 import gleam/list
 import gleam_community/maths
-import problems/p10
+import utilities/primes
 import utilities/timing
 
 pub fn main() -> Nil {
@@ -10,7 +10,7 @@ pub fn main() -> Nil {
 
 fn solution() {
   let best = {
-    use acc, b <- list.fold(p10.primes_up_to(1000), #(0, 0, 0))
+    use acc, b <- list.fold(primes.up_to(1000), #(0, 0, 0))
     use acc, a <- int.range(-b + 1, 1000, acc)
     let f = poly(_, a, b)
     let count = count_primes(f)

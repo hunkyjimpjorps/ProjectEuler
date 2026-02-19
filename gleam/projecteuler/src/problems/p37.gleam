@@ -1,9 +1,9 @@
 import gleam/int
 import gleam/list
 import gleam_community/maths
-import problems/p10
 import utilities/digits
 import utilities/math
+import utilities/primes
 import utilities/timing
 
 pub fn main() -> Nil {
@@ -11,7 +11,7 @@ pub fn main() -> Nil {
 }
 
 fn solution() {
-  p10.primes_up_to(1_000_000)
+  primes.up_to(1_000_000)
   |> list.drop_while(fn(p) { p < 10 })
   |> list.filter(is_truncatable_prime)
   |> int.sum
