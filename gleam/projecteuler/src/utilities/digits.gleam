@@ -1,4 +1,5 @@
 import gleam/int
+import tote/bag
 
 pub fn to_digits(x: Int, base: Int) -> Result(List(Int), Nil) {
   case base < 2 {
@@ -44,5 +45,26 @@ pub fn number_of_digits(n) {
   case n {
     0 -> 0
     n -> 1 + number_of_digits(n / 10)
+  }
+}
+
+pub fn are_permutations(n, m) {
+  bag.new()
+  |> add_to_bag(n, 10)
+  |> remove_from_bag(m, 10)
+  |> bag.is_empty
+}
+
+fn add_to_bag(acc, x: Int, base: Int) {
+  case x == 0 {
+    True -> acc
+    False -> add_to_bag(bag.insert(acc, 1, x % base), x / base, base)
+  }
+}
+
+fn remove_from_bag(acc, x: Int, base: Int) {
+  case x == 0 {
+    True -> acc
+    False -> remove_from_bag(bag.remove(acc, 1, x % base), x / base, base)
   }
 }
