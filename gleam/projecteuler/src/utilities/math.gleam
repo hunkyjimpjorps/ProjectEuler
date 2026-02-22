@@ -39,3 +39,20 @@ fn do_floor_square_root(from: Int, to: Int, radicand: Int) -> Int {
     Lt -> do_floor_square_root(guess, to, radicand)
   }
 }
+
+pub fn step_range(
+  from current: Int,
+  to stop: Int,
+  by increment: Int,
+  with acc: acc,
+  run reducer: fn(acc, Int) -> acc,
+) -> acc {
+  case current >= stop {
+    True -> acc
+    False -> {
+      let acc = reducer(acc, current)
+      let current = current + increment
+      step_range(current, stop, increment, acc, reducer)
+    }
+  }
+}
