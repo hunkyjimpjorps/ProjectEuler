@@ -21,7 +21,7 @@ fn solution() {
   })
 }
 
-fn compute_totients(totients: Dict(Int, Int), i: Int, limit: Int) {
+pub fn compute_totients(totients: Dict(Int, Int), i: Int, limit: Int) {
   case i == limit {
     True -> totients
     False ->

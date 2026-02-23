@@ -47,12 +47,23 @@ pub fn step_range(
   with acc: acc,
   run reducer: fn(acc, Int) -> acc,
 ) -> acc {
-  case current >= stop {
+  case current > stop {
     True -> acc
     False -> {
       let acc = reducer(acc, current)
       let current = current + increment
       step_range(current, stop, increment, acc, reducer)
     }
+  }
+}
+
+pub fn step_until(
+  from current: Int,
+  by increment: Int,
+  run function: fn(Int) -> Result(a, b),
+) {
+  case function(current) {
+    Ok(success) -> #(current, success)
+    Error(_) -> step_until(current + increment, increment, function)
   }
 }
