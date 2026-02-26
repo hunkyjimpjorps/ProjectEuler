@@ -8,26 +8,30 @@ pub fn up_to(upper_bound: Int) -> List(Int) {
     2 -> [2]
     l ->
       range_step(from: 3, to: l, step: 2)
-      |> do_primes_up_to(3, l, [2])
+      |> do_primes_up_to(3, l, set.from_list([2]))
+      |> set.to_list
       |> list.sort(int.compare)
   }
 }
 
 fn do_primes_up_to(
   candidates: Set(Int),
-  pointer: Int,
+  i: Int,
   limit: Int,
-  acc: List(Int),
-) -> List(Int) {
-  case set.contains(candidates, pointer), pointer * pointer <= limit {
-    _, False -> list.append(acc, set.to_list(candidates))
-    False, _ -> do_primes_up_to(candidates, pointer + 2, limit, acc)
-    True, True -> {
-      let removed =
-        range_step(from: pointer * pointer, to: limit, step: 2 * pointer)
-      let sieved = candidates |> set.delete(pointer) |> set.difference(removed)
-      do_primes_up_to(sieved, pointer + 2, limit, [pointer, ..acc])
-    }
+  acc: Set(Int),
+) -> Set(Int) {
+  case i * i <= limit {
+    False -> set.union(acc, candidates)
+    True ->
+      case set.contains(candidates, i) {
+        False -> do_primes_up_to(candidates, i + 2, limit, acc)
+        True -> {
+          candidates
+          |> set.delete(i)
+          |> set.difference(range_step(from: i * i, to: limit, step: 2 * i))
+          |> do_primes_up_to(i + 2, limit, set.insert(acc, i))
+        }
+      }
   }
 }
 
