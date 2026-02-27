@@ -10,7 +10,7 @@ pub fn main() -> Nil {
 
 fn solution() {
   use acc, n <- int.range(1, 1001, 0)
-  acc + { result.unwrap(echo to_words(n), "") |> string.length }
+  acc + { result.unwrap(to_words(n), "") |> string.length }
 }
 
 fn to_words(n: Int) {
