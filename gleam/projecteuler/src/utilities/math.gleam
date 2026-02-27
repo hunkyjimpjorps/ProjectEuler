@@ -1,5 +1,7 @@
+import gleam/float
 import gleam/int
 import gleam/order.{Eq, Gt, Lt}
+import gleam/result
 
 pub fn pow(x: Int, n: Int) -> Int {
   case n {
@@ -66,4 +68,12 @@ pub fn step_until(
     Ok(success) -> #(current, success)
     Error(_) -> step_until(current + increment, increment, function)
   }
+}
+
+pub fn assert_int(n) {
+  n |> int.parse() |> result.unwrap(0)
+}
+
+pub fn assert_float(n) {
+  n |> float.parse() |> result.unwrap(0.0)
 }
