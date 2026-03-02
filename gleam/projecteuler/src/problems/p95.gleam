@@ -1,11 +1,8 @@
 import gleam/dict
 import gleam/int
-import gleam/list
-import gleam/pair
 import gleam/result
 import gleam/set
 import gleam_community/maths
-import rememo/memo
 import utilities/timing
 
 pub fn main() -> Nil {
