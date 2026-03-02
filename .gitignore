@@ -1,2 +1,5 @@
 gleam/projecteuler/src/private/p206.gleam
 gleam/projecteuler/src/private/p346.gleam
+gleam/projecteuler/src/private/psecret.gleam
+gleam/projecteuler/data/convolved_image.png
+gleam/projecteuler/data/bonus_secret_statement.png

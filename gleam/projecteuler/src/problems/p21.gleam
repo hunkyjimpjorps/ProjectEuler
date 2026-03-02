@@ -11,8 +11,6 @@ pub fn main() -> Nil {
 fn solution() {
   int.range(2, 10_000, set.new(), find_amicable_numbers)
   |> set.fold(0, int.add)
-
-  maths.divisors(0)
 }
 
 fn find_amicable_numbers(acc, n) {
@@ -21,7 +19,7 @@ fn find_amicable_numbers(acc, n) {
   use <- bool.guard(n == m, acc)
   let trial_n = m |> maths.proper_divisors |> int.sum
   case n == trial_n {
-    True -> acc |> set.insert(echo n) |> set.insert(echo m)
+    True -> acc |> set.insert(n) |> set.insert(m)
     False -> acc
   }
 }
