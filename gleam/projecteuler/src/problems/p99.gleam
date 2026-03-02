@@ -13,7 +13,6 @@ fn solution() {
   let assert Ok(data) = simplifile.read("./data/99.txt")
 
   use acc, line, i <- list.index_fold(string.split(data, "\n"), #(0, 0.0))
-  echo string.split(line, ",")
   let assert [b, n] =
     string.split(line, ",")
     |> list.filter_map(int.parse)
