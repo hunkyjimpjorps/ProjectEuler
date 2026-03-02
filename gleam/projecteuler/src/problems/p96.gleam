@@ -144,11 +144,10 @@ fn fix_singletons(sudoku: Sudoku) {
         True -> Error(Nil)
         False -> {
           case set.to_list(new_candidates) {
-            [n] -> dict.insert(sudoku.puzzle, next, Fixed(n)) |> Sudoku(rest)
-            _ ->
-              dict.insert(sudoku.puzzle, next, Open(new_candidates))
-              |> Sudoku(rest)
+            [n] -> dict.insert(sudoku.puzzle, next, Fixed(n))
+            _ -> dict.insert(sudoku.puzzle, next, Open(new_candidates))
           }
+          |> Sudoku(rest)
           |> fix_singletons
         }
       }
