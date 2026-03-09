@@ -1,5 +1,4 @@
 import gleam/int
-import gleam/set
 import utilities/timing
 
 pub fn main() -> Nil {
