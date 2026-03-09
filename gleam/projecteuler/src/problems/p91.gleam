@@ -13,20 +13,17 @@ type XY {
 const range = 50
 
 fn solution() {
-  {
-    let origin = XY(0, 0)
-    use acc, px <- int.range(0, range + 1, set.new())
-    use acc, py <- int.range(1, range + 1, acc)
-    let p = XY(px, py)
-    use acc, qx <- int.range(1, range + 1, acc)
-    use acc, qy <- int.range(0, range + 1, acc)
-    let q = XY(qx, qy)
-    case right_triangle(origin, p, q) {
-      True -> [p, q] |> set.from_list |> set.insert(acc, _)
-      False -> acc
-    }
+  let origin = XY(0, 0)
+  use acc, px <- int.range(0, range + 1, 0)
+  use acc, py <- int.range(1, range + 1, acc)
+  let p = XY(px, py)
+  use acc, qx <- int.range(1, range + 1, acc)
+  use acc, qy <- int.range(0, py + 1, acc)
+  let q = XY(qx, qy)
+  case right_triangle(origin, p, q) {
+    True -> acc + 1
+    False -> acc
   }
-  |> set.size
 }
 
 fn right_triangle(a: XY, b: XY, c: XY) {
