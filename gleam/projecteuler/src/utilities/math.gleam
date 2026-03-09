@@ -63,17 +63,35 @@ pub fn step_to_find(
   from current: Int,
   by increment: Int,
   run function: fn(Int) -> Result(a, b),
-) {
+) -> #(Int, a) {
   case function(current) {
     Ok(success) -> #(current, success)
     Error(_) -> step_to_find(current + increment, increment, function)
   }
 }
 
-pub fn assert_int(n) {
+pub fn fold_while(
+  from current: Int,
+  to stop: Int,
+  by increment: Int,
+  starting acc: a,
+  run function: fn(a, Int) -> Result(a, b),
+) -> a {
+  case current >= stop {
+    True -> acc
+    False ->
+      case function(acc, current) {
+        Ok(success) ->
+          fold_while(current + increment, stop, increment, success, function)
+        Error(_) -> acc
+      }
+  }
+}
+
+pub fn assert_int(n: String) -> Int {
   n |> int.parse() |> result.unwrap(0)
 }
 
-pub fn assert_float(n) {
+pub fn assert_float(n: String) -> Float {
   n |> float.parse() |> result.unwrap(0.0)
 }

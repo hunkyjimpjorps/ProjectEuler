@@ -1,4 +1,6 @@
-import gleam/int
+import gleam/int.{absolute_value as abs}
+import gleam/list
+import gleam/result
 import utilities/math
 import utilities/timing
 
@@ -18,10 +20,23 @@ fn solution() {
         False -> Error(Nil)
       }
     })
-}
 
-fn find_differences(width, acc) {
-  todo
+  use acc, width <- math.fold_while(from: 1, to: range, by: 1, starting: [])
+  let diffs = {
+    use acc, height <- math.fold_while(from: 1, to: range, by: 1, starting: acc)
+    let rects = rectangles(width, height)
+    case rects <= target + delta {
+      True -> Ok([#(abs(target - rects), width * height), ..acc])
+      False -> Error(Nil)
+    }
+  }
+  case diffs {
+    [] -> Error(Nil)
+    xs ->
+      xs
+      |> list.max(fn(t1, t2) { int.compare(t2.0, t1.0) })
+      |> result.map(list.wrap)
+  }
 }
 
 fn rectangles_in_strip(dimension: Int) -> Int {
