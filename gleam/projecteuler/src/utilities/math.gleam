@@ -59,14 +59,14 @@ pub fn step_range(
   }
 }
 
-pub fn step_until(
+pub fn step_to_find(
   from current: Int,
   by increment: Int,
   run function: fn(Int) -> Result(a, b),
 ) {
   case function(current) {
     Ok(success) -> #(current, success)
-    Error(_) -> step_until(current + increment, increment, function)
+    Error(_) -> step_to_find(current + increment, increment, function)
   }
 }
 

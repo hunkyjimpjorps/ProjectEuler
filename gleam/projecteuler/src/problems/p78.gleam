@@ -12,7 +12,7 @@ pub fn main() -> Nil {
 
 fn solution() {
   use cache <- memo.create()
-  math.step_until(4, 5, fn(n) {
+  math.step_to_find(4, 5, fn(n) {
     let partitions = find_partitions(n, cache)
     case partitions % 1_000_000 {
       0 -> Ok(partitions)
