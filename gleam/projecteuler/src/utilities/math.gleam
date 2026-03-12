@@ -28,6 +28,25 @@ fn do_exact_square_root(from: Int, to: Int, radicand: Int) -> Result(Int, Nil) {
   }
 }
 
+pub fn exact_nth_root(radicand: Int, power: Int) -> Result(Int, Nil) {
+  do_exact_nth_root(1, radicand, radicand, power)
+}
+
+fn do_exact_nth_root(
+  from: Int,
+  to: Int,
+  radicand: Int,
+  power: Int,
+) -> Result(Int, Nil) {
+  let guess = { from + to } / 2
+  case int.compare(pow(guess, power), radicand) {
+    Eq -> Ok(guess)
+    _ if to - from == 1 -> Error(Nil)
+    Gt -> do_exact_nth_root(from, guess, radicand, power)
+    Lt -> do_exact_nth_root(guess, to, radicand, power)
+  }
+}
+
 pub fn floor_square_root(radicand: Int) -> Int {
   do_floor_square_root(1, radicand, radicand)
 }
