@@ -46,7 +46,3 @@ fn rectangles_in_strip(dimension: Int) -> Int {
 fn rectangles(width: Int, height: Int) -> Int {
   rectangles_in_strip(width) * rectangles_in_strip(height)
 }
-
-fn within_range(n, n0, d) {
-  n > n0 - d && n < n0 + d
-}
