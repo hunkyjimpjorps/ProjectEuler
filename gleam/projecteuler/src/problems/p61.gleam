@@ -1,6 +1,4 @@
-// incomplete
-
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/int
 import gleam/list
 import gleam/result
@@ -19,7 +17,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Result(Int, Nil) {
   let shape_dict = generate_shape_numbers(3, dict.new())
   let shape_numbers = dict.keys(shape_dict)
 
@@ -39,7 +37,10 @@ fn solution() {
   })
 }
 
-fn generate_shape_numbers(n, acc) {
+fn generate_shape_numbers(
+  n: Int,
+  acc: Dict(Int, Figurate),
+) -> Dict(Int, Figurate) {
   case n * { n + 1 } / 2 > 9999 {
     True -> acc
     False -> {
@@ -62,7 +63,7 @@ fn generate_shape_numbers(n, acc) {
 fn find_loop(
   current: Int,
   start: Int,
-  dict,
+  dict: Dict(Int, List(Int)),
   seen: List(Int),
 ) -> Result(List(Int), Nil) {
   case seen {
@@ -80,7 +81,7 @@ fn find_loop(
   }
 }
 
-fn is_valid_loop(xs, dict) {
+fn is_valid_loop(xs: Result(List(a), b), dict: Dict(a, c)) -> Bool {
   let shapes = result.map(xs, list.filter_map(_, dict.get(dict, _)))
 
   case shapes {

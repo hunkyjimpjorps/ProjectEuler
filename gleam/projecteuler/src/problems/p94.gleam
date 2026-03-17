@@ -4,9 +4,9 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-const limit = 1_000_000_000
+const limit: Int = 1_000_000_000
 
-fn solution() {
+fn solution() -> Int {
   // Slow brute-force solution that the sequence generator is based on
   // use acc, a <- math.step_range(5, 1_000_000_000 / 3, 1, 0)
   // case math.exact_square_root(4 * a * a - math.pow(a - 1, 2)) {
@@ -21,7 +21,7 @@ fn solution() {
   next_pair(#(722, 50), #(196, 16), 16 + 50 + 196 + 722)
 }
 
-fn next_pair(shorters, longers, acc) {
+fn next_pair(shorters: #(Int, Int), longers: #(Int, Int), acc: Int) -> Int {
   let #(s1, s0) = shorters
   let #(l1, l0) = longers
   let s2 = 14 * s1 - s0 + 24

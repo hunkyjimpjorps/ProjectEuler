@@ -9,7 +9,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> #(Int, Float) {
   let assert Ok(data) = simplifile.read("./data/99.txt")
 
   use acc, line, i <- list.index_fold(string.split(data, "\n"), #(0, 0.0))

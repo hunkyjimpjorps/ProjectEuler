@@ -9,9 +9,9 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-const all_digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const all_digits: List(Int) = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-fn solution() {
+fn solution() -> Int {
   use acc, n <- int.range(2, 6, 0)
   let assert Ok(digit_yielder) =
     maths.list_combination_with_repetitions(all_digits, n)

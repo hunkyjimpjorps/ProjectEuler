@@ -7,7 +7,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> #(Int, Int) {
   use acc, n <- int.range(1, 1000, #(1, 0))
   let len = multiplicative_order(10, n)
   case len {
@@ -17,12 +17,12 @@ fn solution() {
   }
 }
 
-fn multiplicative_order(a, m) {
+fn multiplicative_order(a: Int, m: Int) -> Result(Int, Nil) {
   use <- bool.guard(maths.gcd(a, m) != 1 || m == 1, Error(Nil))
   do_ord(a, m, 1, 1) |> Ok
 }
 
-fn do_ord(a, m, k, acc) {
+fn do_ord(a: Int, m: Int, k: Int, acc: Int) -> Int {
   let acc = { a * acc } % m
   case acc {
     1 -> k

@@ -10,7 +10,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Result(Int, Nil) {
   yielder.iterate(1, int.add(_, 1))
   |> yielder.map(fn(n) { yielder.from_list([1, 2 * n, 1]) })
   |> yielder.flatten()

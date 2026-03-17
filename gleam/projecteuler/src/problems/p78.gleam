@@ -1,4 +1,4 @@
-import rememo/memo
+import rememo/memo.{type Cache}
 import utilities/math
 import utilities/shortcut
 import utilities/timing
@@ -10,7 +10,7 @@ pub fn main() -> Nil {
 // One of Ramanujan's congruences is that p(5k + 4) = 0 (mod 5), 
 // so we only need to check n that end in 4 or 9
 
-fn solution() {
+fn solution() -> #(Int, Int) {
   use cache <- memo.create()
   math.step_to_find(4, 5, fn(n) {
     let partitions = find_partitions(n, cache)
@@ -21,7 +21,7 @@ fn solution() {
   })
 }
 
-fn find_partitions(n, cache) {
+fn find_partitions(n: Int, cache: Cache(Int, Int)) -> Int {
   use <- memo.memoize(cache, n)
   case n {
     0 -> 1
@@ -32,7 +32,7 @@ fn find_partitions(n, cache) {
 
 // From https://oeis.org/A000041
 
-fn do_recurrence(n, k, acc, cache) {
+fn do_recurrence(n: Int, k: Int, acc: Int, cache: Cache(Int, Int)) -> Int {
   let left = find_partitions(n - k * { 3 * k - 1 } / 2, cache)
   let right = find_partitions(n - k * { 3 * k + 1 } / 2, cache)
   let sign = shortcut.ternary(k % 2 == 1, 1, -1)

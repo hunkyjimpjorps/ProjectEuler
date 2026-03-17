@@ -9,7 +9,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   int.range(1, 1000, set.new(), fn(acc, n) {
     let #(even, odd) = make_palindromes(n)
     acc |> set.insert(even) |> set.insert(odd)
@@ -22,12 +22,12 @@ fn solution() {
   })
 }
 
-fn is_double_palindrome(n) {
+fn is_double_palindrome(n: Int) -> Bool {
   let assert Ok(binary) = digits.to_digits(n, 2)
   binary == list.reverse(binary)
 }
 
-fn make_palindromes(n) {
+fn make_palindromes(n: Int) -> #(Int, Int) {
   let len = math.pow(10, digits.number_of_digits(n) - 1)
   let suffix = digits.reverse(n)
   #(n * { len * 10 } + suffix, n * len + suffix % len)

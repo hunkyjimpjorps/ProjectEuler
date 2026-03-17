@@ -14,7 +14,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let primes = primes.up_to(10_000)
 
   let graph = yog.new(model.Undirected)
@@ -34,7 +34,7 @@ fn solution() {
   |> set.fold(0, int.add)
 }
 
-fn forms_primes(a, b) {
+fn forms_primes(a: Int, b: Int) -> Bool {
   let sum1 = pow(10, digits.number_of_digits(b)) * a + b
   let sum2 = pow(10, digits.number_of_digits(a)) * b + a
   maths.is_prime(sum1) && maths.is_prime(sum2)

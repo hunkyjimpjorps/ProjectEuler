@@ -11,7 +11,7 @@ pub fn main() -> Nil {
 // (since the sums of their digits are also divisible by 3), so the largest pandigital 
 // prime number has seven digits
 
-fn solution() {
+fn solution() -> Result(Int, Nil) {
   let assert Ok(digits) = maths.list_permutation([7, 6, 5, 4, 3, 2, 1], 7)
   yielder.find_map(digits, fn(xs) {
     let assert Ok(n) = digits.from_digits(xs, 10)

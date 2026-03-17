@@ -3,11 +3,11 @@ import gleam/list
 import gleam/string
 import utilities/timing
 
-pub fn main() {
+pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Result(Int, Nil) {
   n
   |> string.replace("\n", "")
   |> string.to_graphemes
@@ -17,7 +17,7 @@ fn solution() {
   |> list.max(int.compare)
 }
 
-const n = "73167176531330624919225119674426574742355349194934
+const n: String = "73167176531330624919225119674426574742355349194934
 96983520312774506326239578318016984801869478851843
 85861560789112949495459501737958331952853208805511
 12540698747158523863050715693290963295227443043557

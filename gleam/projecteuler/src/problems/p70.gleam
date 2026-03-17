@@ -10,9 +10,9 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> #(Int, Float) {
   let assert Ok(prime_pairs) =
-    primes.up_to(5_000)
+    primes.up_to(5000)
     |> list.drop_while(fn(n) { n < 1000 })
     |> maths.list_combination(2)
 

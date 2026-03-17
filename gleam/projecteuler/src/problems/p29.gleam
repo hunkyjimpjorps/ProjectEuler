@@ -7,7 +7,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   {
     use acc, a <- int.range(2, 101, set.new())
     use acc, b <- int.range(2, 101, acc)

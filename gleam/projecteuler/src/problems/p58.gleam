@@ -6,11 +6,11 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   find_ratio(3, 0, 1)
 }
 
-fn find_ratio(n, prime_count, total) {
+fn find_ratio(n: Int, prime_count: Int, total: Int) -> Int {
   let corners = [n * n - n + 1, n * n - 2 * n + 2, n * n - 3 * n + 3]
   let new_prime_count = prime_count + list.count(corners, maths.is_prime)
   let new_total = total + 4

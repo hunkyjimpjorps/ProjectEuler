@@ -1,7 +1,7 @@
 import gleam/float
 import gleam/int
 import gleam/list
-import gleam/set
+import gleam/set.{type Set}
 import gleam/string
 import utilities/timing
 
@@ -9,7 +9,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> #(String, Float) {
   [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0]
   |> list.combinations(4)
   |> list.fold(#("", 0.0), fn(acc, xs) {
@@ -21,7 +21,7 @@ fn solution() {
   })
 }
 
-fn find_max_representable(xs) {
+fn find_max_representable(xs: List(Float)) -> Float {
   xs
   |> list.permutations
   |> list.flat_map(do_all_ops)
@@ -29,7 +29,7 @@ fn find_max_representable(xs) {
   |> find_gap(0.0)
 }
 
-fn do_all_ops(xs) {
+fn do_all_ops(xs: List(Float)) -> List(Float) {
   case xs {
     [a] -> [a]
     [a, b, ..rest] ->
@@ -38,14 +38,14 @@ fn do_all_ops(xs) {
   }
 }
 
-fn find_gap(set, i) {
+fn find_gap(set: Set(Float), i: Float) -> Float {
   case set.contains(set, i +. 1.0) {
     True -> find_gap(set, i +. 1.0)
     False -> i
   }
 }
 
-fn do_ops(a, b) {
+fn do_ops(a: Float, b: Float) -> List(Float) {
   case a, b {
     _, 0.0 -> [a, 0.0]
     0.0, _ -> [b, 0.0 -. b, 0.0]
@@ -53,6 +53,6 @@ fn do_ops(a, b) {
   }
 }
 
-fn to_string(xs) {
+fn to_string(xs: List(Float)) -> String {
   list.map(xs, fn(x) { float.round(x) |> int.to_string }) |> string.concat
 }

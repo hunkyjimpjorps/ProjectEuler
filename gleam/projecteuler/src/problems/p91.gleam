@@ -9,9 +9,9 @@ type XY {
   XY(x: Int, y: Int)
 }
 
-const range = 50
+const range: Int = 50
 
-fn solution() {
+fn solution() -> Int {
   let origin = XY(0, 0)
   use acc, px <- int.range(0, range + 1, 0)
   use acc, py <- int.range(1, range + 1, acc)
@@ -25,7 +25,7 @@ fn solution() {
   }
 }
 
-fn right_triangle(a: XY, b: XY, c: XY) {
+fn right_triangle(a: XY, b: XY, c: XY) -> Bool {
   let ab = dist_squared(a, b)
   let bc = dist_squared(b, c)
   let ac = dist_squared(a, c)
@@ -33,10 +33,10 @@ fn right_triangle(a: XY, b: XY, c: XY) {
   b != c && { ab + bc == ac || ab + ac == bc || bc + ac == ab }
 }
 
-fn sq(n) {
+fn sq(n: Int) -> Int {
   n * n
 }
 
-fn dist_squared(a: XY, b: XY) {
+fn dist_squared(a: XY, b: XY) -> Int {
   sq(a.x - b.x) + sq(a.y - b.y)
 }

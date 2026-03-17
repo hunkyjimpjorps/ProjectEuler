@@ -5,11 +5,11 @@ import gleam/pair
 import gleam/string
 import utilities/timing
 
-pub fn main() {
+pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Result(Int, Nil) {
   let grid = parse_grid(raw_grid)
 
   let rows =
@@ -63,7 +63,7 @@ fn solution() {
   |> list.max(int.compare)
 }
 
-fn parse_grid(str) {
+fn parse_grid(str: String) -> dict.Dict(#(Int, Int), Int) {
   {
     use row, r <- list.index_map(string.split(str, "\n"))
     use col, c <- list.index_map(string.split(row, " "))
@@ -74,9 +74,9 @@ fn parse_grid(str) {
   |> dict.from_list
 }
 
-const size = 20
+const size: Int = 20
 
-const raw_grid = "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
+const raw_grid: String = "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
 52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91

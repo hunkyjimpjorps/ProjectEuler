@@ -1,5 +1,5 @@
 import gleam/int
-import rememo/memo
+import rememo/memo.{type Cache}
 import utilities/math
 import utilities/timing
 
@@ -7,12 +7,12 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   use cache <- memo.create()
   find_partitions(100, 100, cache) - 1
 }
 
-fn find_partitions(n, goal, cache) {
+fn find_partitions(n: Int, goal: Int, cache: Cache(#(Int, Int), Int)) -> Int {
   use <- memo.memoize(cache, #(n, goal))
   case n {
     0 -> 0

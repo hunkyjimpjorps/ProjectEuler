@@ -23,19 +23,19 @@ pub type Value {
   Open(Set(Int))
 }
 
-fn in_row(sudoku: Sudoku, row) {
+fn in_row(sudoku: Sudoku, row: Int) -> List(#(Cell, Value)) {
   use acc, col <- int.range(9, 0, [])
   let assert Ok(set) = dict.get(sudoku.puzzle, Cell(row, col))
   [#(Cell(row, col), set), ..acc]
 }
 
-fn in_col(sudoku: Sudoku, col) {
+fn in_col(sudoku: Sudoku, col: Int) -> List(#(Cell, Value)) {
   use acc, row <- int.range(9, 0, [])
   let assert Ok(set) = dict.get(sudoku.puzzle, Cell(row, col))
   [#(Cell(row, col), set), ..acc]
 }
 
-fn in_block(sudoku: Sudoku, row, col) {
+fn in_block(sudoku: Sudoku, row: Int, col: Int) -> List(#(Cell, Value)) {
   let max_row = end_of_block(row)
   let max_col = end_of_block(col)
 
@@ -45,7 +45,7 @@ fn in_block(sudoku: Sudoku, row, col) {
   [#(Cell(row, col), set), ..acc]
 }
 
-fn end_of_block(coordinate) {
+fn end_of_block(coordinate: Int) -> Int {
   case coordinate {
     1 | 2 | 3 -> 3
     4 | 5 | 6 -> 6
@@ -58,7 +58,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let assert Ok(input) = simplifile.read("./data/96.txt")
 
   let assert Ok(grids) =
@@ -77,7 +77,7 @@ fn solution() {
   |> int.sum
 }
 
-fn parse_grid(input) {
+fn parse_grid(input: String) -> Sudoku {
   let puzzle = {
     use acc, row, r <- list.index_fold(
       input |> string.trim |> string.split("\n"),
@@ -95,7 +95,7 @@ fn parse_grid(input) {
   Sudoku(puzzle:, open_cells: [])
 }
 
-fn solution_loop(sudoku: Sudoku) {
+fn solution_loop(sudoku: Sudoku) -> Result(Sudoku, Nil) {
   case list.is_empty(sudoku.open_cells) {
     True -> Ok(sudoku)
     False -> {
@@ -109,7 +109,7 @@ fn solution_loop(sudoku: Sudoku) {
   }
 }
 
-fn find_open_cells(sudoku: Sudoku) {
+fn find_open_cells(sudoku: Sudoku) -> Sudoku {
   sudoku.puzzle
   |> dict.filter(fn(_, v) {
     case v {
@@ -121,7 +121,7 @@ fn find_open_cells(sudoku: Sudoku) {
   |> Sudoku(sudoku.puzzle, open_cells: _)
 }
 
-fn fix_singletons(sudoku: Sudoku) {
+fn fix_singletons(sudoku: Sudoku) -> Result(Sudoku, Nil) {
   case sudoku.open_cells {
     [] -> Ok(sudoku)
     [next, ..rest] -> {
@@ -155,7 +155,7 @@ fn fix_singletons(sudoku: Sudoku) {
   }
 }
 
-fn make_guess(sudoku: Sudoku) {
+fn make_guess(sudoku: Sudoku) -> Result(Sudoku, Nil) {
   let assert Ok(cell) =
     list.max(sudoku.open_cells, fn(c1, c2) {
       let assert Ok(Open(set1)) = dict.get(sudoku.puzzle, c1)
@@ -173,7 +173,7 @@ fn make_guess(sudoku: Sudoku) {
   })
 }
 
-fn make_solution_key(sudoku: Sudoku) {
+fn make_solution_key(sudoku: Sudoku) -> Result(Int, a) {
   let assert [Fixed(a), Fixed(b), Fixed(c)] =
     [Cell(1, 1), Cell(1, 2), Cell(1, 3)]
     |> list.filter_map(dict.get(sudoku.puzzle, _))
@@ -181,7 +181,7 @@ fn make_solution_key(sudoku: Sudoku) {
   Ok(100 * a + 10 * b + c)
 }
 
-pub fn print_puzzle(sudoku: Sudoku) {
+pub fn print_puzzle(sudoku: Sudoku) -> Nil {
   sudoku.puzzle
   |> dict.to_list
   |> list.sort(fn(tup1, tup2) {

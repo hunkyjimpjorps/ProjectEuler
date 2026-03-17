@@ -6,11 +6,11 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   do_recurrence([1, 1], [1, 0], 0, 1000)
 }
 
-fn do_recurrence(a: List(Int), b: List(Int), acc: Int, count: Int) {
+fn do_recurrence(a: List(Int), b: List(Int), acc: Int, count: Int) -> Int {
   use <- bool.guard(count == 0, acc)
 
   let assert [an1, an2, ..] = a

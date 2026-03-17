@@ -2,11 +2,11 @@ import gleam/int
 import gleam/pair
 import utilities/timing
 
-pub fn main() {
+pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   int.range(1, 1_000_000, #(1, 1), fn(acc, n) {
     let #(_, best_collatz) = acc
     let trial_collatz = collatz(n)
@@ -18,7 +18,7 @@ fn solution() {
   |> pair.first
 }
 
-fn collatz(n) {
+fn collatz(n: Int) -> Int {
   case n {
     1 -> 0
     n if n % 2 == 0 -> 1 + collatz(n / 2)

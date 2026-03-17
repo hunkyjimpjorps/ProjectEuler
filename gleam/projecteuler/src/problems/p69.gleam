@@ -7,7 +7,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> #(Int, Float) {
   math.step_range(2, 1_000_000, 1, dict.new(), fn(acc, n) {
     dict.insert(acc, n, n)
   })
@@ -21,7 +21,11 @@ fn solution() {
   })
 }
 
-pub fn compute_totients(totients: Dict(Int, Int), i: Int, limit: Int) {
+pub fn compute_totients(
+  totients: Dict(Int, Int),
+  i: Int,
+  limit: Int,
+) -> Dict(Int, Int) {
   case i == limit {
     True -> totients
     False ->

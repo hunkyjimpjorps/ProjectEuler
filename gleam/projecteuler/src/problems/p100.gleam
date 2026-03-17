@@ -4,7 +4,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   recurrence_relation(3, 1)
 }
 
@@ -12,7 +12,7 @@ fn solution() {
 // there needs to be some integer k such that k^2 = 8R^2 + 1 for B to be an integer,
 // which is the Pell's equation with fundamental solution (3, 1)
 
-fn recurrence_relation(root, red) {
+fn recurrence_relation(root: Int, red: Int) -> Int {
   let blue = red + { 1 + root } / 2
   case blue + red > 1_000_000_000_000 {
     True -> blue

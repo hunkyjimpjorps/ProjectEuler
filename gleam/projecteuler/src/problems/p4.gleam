@@ -2,11 +2,11 @@ import gleam/int
 import gleam/list
 import utilities/timing
 
-pub fn main() {
+pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   use acc, n <- list.fold(int.range(100, 1000, [], list.prepend), 0)
   use acc, m <- list.fold(int.range(n, 1000, [], list.prepend), acc)
   case is_palindrome(n * m) {
@@ -15,11 +15,11 @@ fn solution() {
   }
 }
 
-fn is_palindrome(n) {
+fn is_palindrome(n: Int) -> Bool {
   n == do_reverse(n, 0)
 }
 
-fn do_reverse(n, acc) {
+fn do_reverse(n: Int, acc: Int) -> Int {
   case n {
     0 -> acc
     n -> do_reverse(n / 10, acc * 10 + n % 10)

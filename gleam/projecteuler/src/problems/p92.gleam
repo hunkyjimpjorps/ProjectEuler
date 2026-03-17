@@ -9,7 +9,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   use cache <- memo.create()
   use acc, i <- int.range(1, 10_000_000, 0)
   case digit_chain(i, cache) {
@@ -18,7 +18,7 @@ fn solution() {
   }
 }
 
-fn digit_chain(n, cache) {
+fn digit_chain(n: Int, cache) -> Result(Nil, Nil) {
   case n {
     1 -> Error(Nil)
     89 -> Ok(Nil)

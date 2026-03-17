@@ -6,7 +6,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-const squares = [
+const squares: List(#(Int, Int)) = [
   #(0, 1),
   #(0, 4),
   #(0, 9),
@@ -18,15 +18,15 @@ const squares = [
   #(8, 1),
 ]
 
-const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const digits: List(Int) = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-fn solution() {
+fn solution() -> Int {
   list.combinations(digits, 6)
   |> list.combination_pairs
   |> list.count(valid_set)
 }
 
-fn valid_set(dice) {
+fn valid_set(dice: #(List(Int), List(Int))) -> Bool {
   let #(first, second) = dice
   let all_pairs = {
     use f <- list.flat_map(first)

@@ -10,19 +10,19 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   primes.up_to(1_000_000)
   |> list.drop_while(fn(p) { p < 10 })
   |> list.filter(is_truncatable_prime)
   |> int.sum
 }
 
-fn is_truncatable_prime(n) {
+fn is_truncatable_prime(n: Int) -> Bool {
   list.append(truncate_left(n), truncate_right(n))
   |> list.all(maths.is_prime)
 }
 
-fn truncate_left(n) {
+fn truncate_left(n: Int) -> List(Int) {
   case n {
     n if n < 10 -> []
     n -> {
@@ -32,7 +32,7 @@ fn truncate_left(n) {
   }
 }
 
-fn truncate_right(n) {
+fn truncate_right(n: Int) -> List(Int) {
   case n {
     n if n < 10 -> []
     n -> [n / 10, ..truncate_right(n / 10)]

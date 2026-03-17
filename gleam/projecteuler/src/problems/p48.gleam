@@ -6,7 +6,6 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   int.range(1, 1001, 0, fn(acc, n) { { acc + math.pow(n, n) } % 10_000_000_000 })
 }
-

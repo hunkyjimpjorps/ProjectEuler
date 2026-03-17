@@ -1,6 +1,6 @@
 import gleam/bool
 import gleam/int
-import gleam/set
+import gleam/set.{type Set}
 import gleam_community/maths
 import utilities/timing
 
@@ -8,12 +8,12 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   int.range(2, 10_000, set.new(), find_amicable_numbers)
   |> set.fold(0, int.add)
 }
 
-fn find_amicable_numbers(acc, n) {
+fn find_amicable_numbers(acc: Set(Int), n: Int) -> Set(Int) {
   use <- bool.guard(set.contains(acc, n), acc)
   let m = n |> maths.proper_divisors |> int.sum
   use <- bool.guard(n == m, acc)

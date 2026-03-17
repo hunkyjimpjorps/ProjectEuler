@@ -8,7 +8,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let best = {
     use acc, b <- list.fold(primes.up_to(1000), #(0, 0, 0))
     use acc, a <- int.range(-b + 1, 1000, acc)
@@ -22,15 +22,15 @@ fn solution() {
   best.0 * best.1
 }
 
-fn poly(n, a, b) {
+fn poly(n: Int, a: Int, b: Int) -> Int {
   n * n + a * n + b
 }
 
-fn count_primes(f) {
+fn count_primes(f: fn(Int) -> Int) -> Int {
   do_count_primes(f, 0)
 }
 
-fn do_count_primes(f, n) {
+fn do_count_primes(f: fn(Int) -> Int, n: Int) -> Int {
   case maths.is_prime(f(n)) {
     True -> do_count_primes(f, n + 1)
     False -> n

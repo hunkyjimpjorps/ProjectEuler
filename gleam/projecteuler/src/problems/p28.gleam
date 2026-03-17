@@ -4,11 +4,11 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   add_layer(1, 1)
 }
 
-fn add_layer(n, acc) {
+fn add_layer(n: Int, acc: Int) -> Int {
   let upper_right = 4 * n * n + 4 * n + 1
   let lower_right = 4 * n * n - 2 * n + 1
   let lower_left = 4 * n * n + 1

@@ -12,7 +12,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let assert Ok(data) = simplifile.read("./data/42.txt")
   let scores = letter_scores()
 
@@ -29,13 +29,17 @@ fn solution() {
   }
 }
 
-fn parse(str) {
+fn parse(str: String) -> List(String) {
   let split_on = splitter.new({ ["\",\"", "\""] })
 
   do_parse(str, [], split_on)
 }
 
-fn do_parse(str, acc, splitter) {
+fn do_parse(
+  str: String,
+  acc: List(String),
+  splitter: splitter.Splitter,
+) -> List(String) {
   case splitter.split(splitter, str) {
     #("", _, rest) -> do_parse(rest, acc, splitter)
     #(name, _, "") -> list.reverse([name, ..acc])
@@ -43,7 +47,7 @@ fn do_parse(str, acc, splitter) {
   }
 }
 
-fn letter_scores() {
+fn letter_scores() -> dict.Dict(String, Int) {
   let assert Ok(a) =
     string.to_utf_codepoints("A")
     |> list.first

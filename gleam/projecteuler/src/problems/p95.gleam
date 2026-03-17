@@ -9,7 +9,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> #(Int, Int) {
   let aliquots =
     int.range(1, 1_000_000, dict.new(), fn(acc, n) {
       dict.insert(acc, n, aliquot(n))
@@ -29,11 +29,16 @@ fn solution() {
   }
 }
 
-fn aliquot(n) {
+fn aliquot(n: Int) -> Int {
   int.sum(maths.proper_divisors(n))
 }
 
-fn find_chain(n: Int, seen, first, dict) {
+fn find_chain(
+  n: Int,
+  seen: set.Set(Int),
+  first: Int,
+  dict: dict.Dict(Int, Int),
+) -> Int {
   let aliquot = dict.get(dict, n)
   let contains = result.map(aliquot, set.contains(seen, _))
   case aliquot, contains {

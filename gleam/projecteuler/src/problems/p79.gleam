@@ -1,7 +1,7 @@
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/list
 import gleam/option
-import gleam/set
+import gleam/set.{type Set}
 import gleam/string
 import simplifile
 import utilities/timing
@@ -10,7 +10,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> String {
   let assert Ok(entries) = simplifile.read("./data/79.txt")
 
   list.fold(string.split(entries, "\n"), dict.new(), fn(acc, codes) {
@@ -23,7 +23,7 @@ fn solution() {
   |> assemble_passcode("")
 }
 
-fn assemble_passcode(dict, acc) {
+fn assemble_passcode(dict: Dict(String, Set(String)), acc: String) -> String {
   case dict.is_empty(dict) {
     True -> acc
     False -> {

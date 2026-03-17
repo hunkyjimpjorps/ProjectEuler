@@ -7,11 +7,11 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   has_permuted_multiples(1)
 }
 
-fn has_permuted_multiples(n) {
+fn has_permuted_multiples(n: Int) -> Int {
   let multiples =
     [1, 2, 3, 4, 5, 6]
     |> list.map(fn(int) {

@@ -4,13 +4,13 @@ import utilities/digits
 import utilities/primes
 import utilities/timing
 
-const all_digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const all_digits: List(Int) = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-pub fn main() {
+pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Result(Int, Nil) {
   let assert Ok(#(_, digits)) =
     primes.up_to(999_999)
     |> list.drop_while(fn(p) { p < 100_000 })
@@ -19,7 +19,7 @@ fn solution() {
   digits.from_digits(digits, 10)
 }
 
-fn does_form_prime_family(tup) {
+fn does_form_prime_family(tup: #(Int, List(Int))) -> Bool {
   let #(to_replace, digits) = tup
   let primes_in_family =
     {
@@ -38,7 +38,7 @@ fn does_form_prime_family(tup) {
   primes_in_family >= 8
 }
 
-fn find_replaceable_digits(p) {
+fn find_replaceable_digits(p: Int) -> Result(#(Int, List(Int)), Nil) {
   let assert Ok(digits) = digits.to_digits(p, 10)
   let result =
     [0, 1, 2]

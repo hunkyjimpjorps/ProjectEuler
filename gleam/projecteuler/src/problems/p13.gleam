@@ -3,11 +3,11 @@ import gleam/list
 import gleam/string
 import utilities/timing
 
-pub fn main() {
+pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> String {
   numbers
   |> string.split("\n")
   |> list.filter_map(int.parse)
@@ -16,7 +16,7 @@ fn solution() {
   |> string.slice(0, 10)
 }
 
-const numbers = "37107287533902102798797998220837590246510135740250
+const numbers: String = "37107287533902102798797998220837590246510135740250
 46376937677490009712648124896970078050417018260538
 74324986199524741059474233309513058123726617309629
 91942213363574161572522430563301811072406154908250

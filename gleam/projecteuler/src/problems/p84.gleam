@@ -1,8 +1,8 @@
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/int
 import gleam/list
 import gleam/string
-import tote/bag
+import tote/bag.{type Bag}
 import utilities/shortcut
 
 type Draw {
@@ -26,7 +26,7 @@ fn solution() -> String {
   |> string.concat
 }
 
-fn special_squares_dict() -> dict.Dict(Int, Draw) {
+fn special_squares_dict() -> Dict(Int, Draw) {
   int.range(0, 40, dict.new(), fn(acc, i) {
     dict.insert(acc, i, Draw(fn(n) { n }))
   })
@@ -79,10 +79,10 @@ fn roll_dice() -> #(Int, Int) {
 fn traverse(
   current_square: Int,
   doubles: Int,
-  sqs: dict.Dict(Int, Draw),
-  acc: bag.Bag(Int),
+  sqs: Dict(Int, Draw),
+  acc: Bag(Int),
   i: Int,
-) -> bag.Bag(Int) {
+) -> Bag(Int) {
   let #(a, b) = roll_dice()
   let next_square = { current_square + a + b } % 40
   let doubles = shortcut.ternary(a == b, doubles + 1, 0)

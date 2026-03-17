@@ -4,9 +4,9 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-const size = 10_000_000_000
+const size: Int = 10_000_000_000
 
-fn solution() {
+fn solution() -> Int {
   { 28_433 * trimmed_pow(2, 7_830_457) + 1 } % size
 }
 

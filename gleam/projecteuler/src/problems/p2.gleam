@@ -1,10 +1,10 @@
 import utilities/timing
 
-pub fn main() {
+pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   add_even_terms(1, 1, 0)
 }
 

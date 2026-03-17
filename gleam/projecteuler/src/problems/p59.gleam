@@ -1,7 +1,7 @@
 import gleam/int
 import gleam/list.{Continue, Stop}
 import gleam/string
-import gleam/yielder
+import gleam/yielder.{type Yielder}
 import gleam_community/maths
 import simplifile
 import utilities/timing
@@ -10,7 +10,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let assert Ok(encoded) = simplifile.read("./data/59.txt")
 
   let original =
@@ -38,7 +38,7 @@ fn solution() {
   }
 }
 
-fn try_key(original, key) {
+fn try_key(original: List(Int), key: List(Int)) -> Yielder(UtfCodepoint) {
   let apply = key |> yielder.from_list |> yielder.cycle
 
   original

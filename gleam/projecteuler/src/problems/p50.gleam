@@ -1,17 +1,17 @@
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/int
 import gleam/order
-import gleam/set
+import gleam/set.{type Set}
 import utilities/primes
 import utilities/timing
 
-const limit = 1_000_000
+const limit: Int = 1_000_000
 
-pub fn main() {
+pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> #(Int, Int) {
   let all_primes = primes.up_to(limit)
   let all_primes_set = all_primes |> set.from_list
 
@@ -26,11 +26,17 @@ fn solution() {
   })
 }
 
-fn running_sum(xs, keep) {
+fn running_sum(xs: List(Int), keep: Set(Int)) -> List(#(Int, Int)) {
   do_running_sum(xs, 0, [], 1, keep)
 }
 
-fn do_running_sum(xs, sum, acc, i, keep) {
+fn do_running_sum(
+  xs: List(Int),
+  sum: Int,
+  acc: List(#(Int, Int)),
+  i: Int,
+  keep: Set(Int),
+) -> List(#(Int, Int)) {
   case xs {
     [] -> acc
     _ if sum > limit -> acc
@@ -45,7 +51,11 @@ fn do_running_sum(xs, sum, acc, i, keep) {
   }
 }
 
-fn all_running_sums(primes, keep, acc) {
+fn all_running_sums(
+  primes: List(Int),
+  keep: Set(Int),
+  acc: Dict(Int, Int),
+) -> Dict(Int, Int) {
   case primes {
     [] -> acc
     [_, ..t] -> {

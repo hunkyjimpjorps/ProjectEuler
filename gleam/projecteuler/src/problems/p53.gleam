@@ -6,7 +6,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   use acc, n <- int.range(1, 101, 0)
   use acc, r <- int.range(1, n + 1, acc)
   let assert Ok(c) = maths.combination(n, r)

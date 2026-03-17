@@ -7,7 +7,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   use acc, n <- int.range(1, 10_000, 0)
   case is_lychrel(n) {
     True -> acc + 1
@@ -15,11 +15,11 @@ fn solution() {
   }
 }
 
-fn is_lychrel(n) {
+fn is_lychrel(n: Int) -> Bool {
   do_lychrel(n + digits.reverse(n), 0)
 }
 
-fn do_lychrel(n, i) {
+fn do_lychrel(n: Int, i: Int) -> Bool {
   use <- bool.guard(i == 50, True)
   let rev = digits.reverse(n)
   use <- bool.guard(n == rev, False)

@@ -7,7 +7,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   period.from_dates(
     start: date.literal("1901-01-01"),
     end: date.literal("2000-12-31"),

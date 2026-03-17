@@ -8,19 +8,19 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let assert Ok(raw_pyramid) = simplifile.read("./data/67.txt")
   raw_pyramid |> string.trim |> parse |> find_best_path
 }
 
-fn parse(input) {
+fn parse(input: String) -> List(List(Int)) {
   input
   |> string.split("\n")
   |> list.map(fn(row) { row |> string.split(" ") |> list.filter_map(int.parse) })
   |> list.reverse
 }
 
-fn find_best_path(pyramid) {
+fn find_best_path(pyramid: List(List(Int))) -> Int {
   case pyramid {
     [[best]] -> best
     [this_row, next_row, ..rest] -> {

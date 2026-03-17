@@ -5,11 +5,11 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   try_next_triangular(286)
 }
 
-fn try_next_triangular(n) {
+fn try_next_triangular(n: Int) -> Int {
   let t_n = triangular(n)
 
   case is_pentagonal(t_n) && is_hexagonal(t_n) {
@@ -18,7 +18,7 @@ fn try_next_triangular(n) {
   }
 }
 
-fn triangular(n) {
+fn triangular(n: Int) -> Int {
   n * { n + 1 } / 2
 }
 

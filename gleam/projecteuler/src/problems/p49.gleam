@@ -5,11 +5,11 @@ import utilities/digits
 import utilities/primes
 import utilities/timing
 
-pub fn main() {
+pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> List(Int) {
   primes.up_to(9999)
   |> list.drop_while(fn(n) { n < 1000 })
   |> list.group(fn(n) {

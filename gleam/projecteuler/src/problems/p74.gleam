@@ -1,6 +1,6 @@
 import gleam/int
 import gleam/list
-import gleam/set
+import gleam/set.{type Set}
 import utilities/digits
 import utilities/timing
 
@@ -8,7 +8,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   use acc, n <- int.range(1, 1_000_000, 0)
   case find_loop(n, 0, set.new()) {
     60 -> acc + 1
@@ -16,7 +16,7 @@ fn solution() {
   }
 }
 
-fn digit_factorial(n) {
+fn digit_factorial(n: Int) -> Int {
   case n {
     0 -> 1
     1 -> 1
@@ -32,12 +32,12 @@ fn digit_factorial(n) {
   }
 }
 
-fn transform(n) {
+fn transform(n: Int) -> Int {
   let assert Ok(digits) = digits.to_digits(n, 10)
   list.fold(digits, 0, fn(acc, d) { acc + digit_factorial(d) })
 }
 
-fn find_loop(n, count, seen) {
+fn find_loop(n: Int, count: Int, seen: Set(Int)) -> Int {
   case set.contains(seen, n) {
     _ if count > 60 -> 61
     True -> count

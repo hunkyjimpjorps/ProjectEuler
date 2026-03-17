@@ -8,7 +8,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let abundants = {
     use acc, n <- int.range(1, 28_124, [])
     case n < int.sum(maths.proper_divisors(n)) {

@@ -9,11 +9,11 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-const roman = [
+const roman: List(String) = [
   "CM", "M", "CD", "D", "XC", "C", "XL", "L", "IX", "X", "IV", "V", "I",
 ]
 
-fn to_value(str) {
+fn to_value(str: String) -> Int {
   case str {
     "CM" -> 900
     "M" -> 1000
@@ -32,7 +32,7 @@ fn to_value(str) {
   }
 }
 
-fn solution() {
+fn solution() -> Int {
   let digit_parser = splitter.new(roman)
 
   let rewriter_table =
@@ -50,14 +50,14 @@ fn solution() {
   })
 }
 
-fn get_value(str, acc, splitter) {
+fn get_value(str: String, acc: Int, splitter: splitter.Splitter) -> Int {
   case splitter.split_after(splitter, str) {
     #("", "") -> acc
     #(digit, rest) -> get_value(rest, acc + to_value(digit), splitter)
   }
 }
 
-fn rewrite(table, n, acc) {
+fn rewrite(table: List(#(Int, String)), n: Int, acc: String) -> String {
   case table {
     [] -> acc
     [#(val, sym), ..rest] -> {

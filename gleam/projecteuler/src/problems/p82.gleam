@@ -13,7 +13,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let assert Ok(data) = simplifile.read("./data/81.txt")
   let node_dict = grid.to_node_dict(data, with: int.parse)
 
@@ -32,15 +32,15 @@ fn solution() {
   |> int.sum
 }
 
-fn neighbors(posn) {
+fn neighbors(posn: #(Int, Int)) -> List(#(Int, Int)) {
   let #(r, c) = posn
   [#(r + 1, c), #(r - 1, c), #(r, c - 1)]
 }
 
-fn weighting(_, v, _, _) {
+fn weighting(_: a, v: Int, _: b, _: c) -> Float {
   int.to_float(v)
 }
 
-fn all_in_column(c) {
+fn all_in_column(c: a) -> List(#(Int, a)) {
   int.range(0, 80, [], fn(acc, n) { [#(n, c), ..acc] })
 }

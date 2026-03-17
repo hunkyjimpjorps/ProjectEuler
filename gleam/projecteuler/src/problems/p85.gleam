@@ -8,11 +8,11 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-const target = 2_000_000
+const target: Int = 2_000_000
 
-const delta = 1000
+const delta: Int = 1000
 
-fn solution() {
+fn solution() -> List(#(Int, Int)) {
   let #(range, _) =
     math.step_to_find(1, 1, fn(i) {
       case rectangles_in_strip(i) >= target + delta {

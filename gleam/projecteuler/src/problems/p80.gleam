@@ -9,7 +9,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   use acc, n <- int.range(1, 100, 0)
   case math.exact_square_root(n) {
     Ok(..) -> acc
@@ -17,7 +17,7 @@ fn solution() {
   }
 }
 
-fn expansion_sum(n) {
+fn expansion_sum(n: Int) -> Int {
   let s = n * math.pow(10, 200)
   heron(s, s / 2)
   |> digits.to_digits(10)
@@ -26,7 +26,7 @@ fn expansion_sum(n) {
   |> result.unwrap(0)
 }
 
-fn heron(n, x0) {
+fn heron(n: Int, x0: Int) -> Int {
   let x1 = { x0 + n / x0 } / 2
   case x0 == x1 {
     True -> x1

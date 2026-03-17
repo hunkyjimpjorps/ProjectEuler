@@ -12,11 +12,11 @@ pub fn main() -> Nil {
   timing.run(fn() { solution(primes) })
 }
 
-fn solution(primes) {
+fn solution(primes: List(Int)) -> Int {
   list.count(primes, is_circular_prime)
 }
 
-fn is_circular_prime(n) {
+fn is_circular_prime(n: Int) -> Bool {
   let assert Ok(digits) = digits.to_digits(n, 10)
   use <- bool.guard(list.any(digits, is_bad_digit) && n > 10, False)
   int.range(0, list.length(digits), [], fn(acc, n) {
@@ -29,7 +29,7 @@ fn is_circular_prime(n) {
   |> list.all(maths.is_prime)
 }
 
-fn is_bad_digit(n) {
+fn is_bad_digit(n: Int) -> Bool {
   case n {
     2 | 4 | 5 | 6 | 8 -> True
     _ -> False

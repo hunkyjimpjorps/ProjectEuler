@@ -1,7 +1,7 @@
 import gleam/int
 import gleam/list
 import gleam_community/maths
-import rememo/memo
+import rememo/memo.{type Cache}
 import utilities/math
 import utilities/primes
 import utilities/timing
@@ -10,7 +10,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> #(Int, Int) {
   let primes = primes.up_to(1000)
   use cache <- memo.create()
   use n <- math.step_to_find(10, 1)
@@ -20,7 +20,12 @@ fn solution() {
   }
 }
 
-fn find_partitions(n, goal, primes, cache) {
+fn find_partitions(
+  n: Int,
+  goal: Int,
+  primes: List(Int),
+  cache: Cache(#(Int, Int), Int),
+) -> Int {
   use <- memo.memoize(cache, #(n, goal))
   case n {
     0 | 1 -> 0

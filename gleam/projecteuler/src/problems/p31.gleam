@@ -8,7 +8,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Result(Int, Nil) {
   let coins =
     [1, 2, 5, 10, 20, 50, 100, 200]
     |> list.index_map(fn(c, i) { #(i + 1, c) })

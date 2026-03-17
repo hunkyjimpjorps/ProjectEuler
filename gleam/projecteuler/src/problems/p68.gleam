@@ -8,7 +8,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Result(String, Nil) {
   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   |> list.permutations
   |> list.filter_map(valid_fivegon)
@@ -16,7 +16,7 @@ fn solution() {
   |> list.first
 }
 
-fn valid_fivegon(fivegon) {
+fn valid_fivegon(fivegon: List(Int)) -> Result(String, Nil) {
   let assert [a, b, c, d, e, f, g, h, i, j] = fivegon
 
   let line1 = a + b + c

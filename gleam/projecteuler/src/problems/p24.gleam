@@ -6,7 +6,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Result(List(Int), Nil) {
   int.range(1, 10, [], list.prepend)
   |> list.reverse
   |> list.permutations()

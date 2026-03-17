@@ -1,11 +1,11 @@
 import gleam/bool
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/int
 import gleam/list
 import gleam/string
 import simplifile
-import splitter
-import tote/bag
+import splitter.{type Splitter}
+import tote/bag.{type Bag}
 import utilities/digits
 import utilities/math
 import utilities/timing
@@ -14,7 +14,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Result(Int, Nil) {
   let assert Ok(data) = simplifile.read("./data/98.txt")
 
   let pairs = parse(data)
@@ -28,7 +28,7 @@ fn solution() {
   |> list.max(int.compare)
 }
 
-fn parse(str) {
+fn parse(str: String) -> List(List(String)) {
   let split_on = splitter.new({ ["\",\"", "\""] })
 
   do_parse(str, [], split_on)
@@ -38,7 +38,7 @@ fn parse(str) {
   |> list.flat_map(list.window(_, 2))
 }
 
-fn do_parse(str, acc, splitter) {
+fn do_parse(str: String, acc: List(String), splitter: Splitter) -> List(String) {
   case splitter.split(splitter, str) {
     #("", _, rest) -> do_parse(rest, acc, splitter)
     #(name, _, "") -> list.reverse([name, ..acc])
@@ -46,11 +46,11 @@ fn do_parse(str, acc, splitter) {
   }
 }
 
-fn grouper(str) {
+fn grouper(str: String) -> Bag(String) {
   str |> string.to_graphemes |> bag.from_list
 }
 
-fn build_squares(n, i) {
+fn build_squares(n: Int, i: Int) -> List(Int) {
   let square = i * i
   case digits.number_of_digits(square) > n {
     True -> []
@@ -58,7 +58,11 @@ fn build_squares(n, i) {
   }
 }
 
-fn check_pair(word1, word2, squares) {
+fn check_pair(
+  word1: List(a),
+  word2: List(a),
+  squares: List(Int),
+) -> Result(Int, Nil) {
   case squares {
     [] -> Error(Nil)
     [square, ..rest] -> {
@@ -85,7 +89,7 @@ fn check_pair(word1, word2, squares) {
   }
 }
 
-fn unique_pairings(dict) {
+fn unique_pairings(dict: Dict(a, b)) -> Bool {
   let vals = dict.values(dict)
   list.unique(vals) != vals
 }

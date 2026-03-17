@@ -10,7 +10,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   use acc, n <- int.range(1, 10_000, 0)
   case has_pandigital_product(n) {
     True -> n + acc
@@ -18,7 +18,7 @@ fn solution() {
   }
 }
 
-fn has_pandigital_product(n) {
+fn has_pandigital_product(n: Int) -> Bool {
   let assert Ok(limit) = int.square_root(n) |> result.map(float.round)
 
   list.any(maths.proper_divisors(n), fn(d) {
@@ -26,7 +26,7 @@ fn has_pandigital_product(n) {
   })
 }
 
-fn is_pandigital(d1, d2, n) {
+fn is_pandigital(d1: Int, d2: Int, n: Int) -> Bool {
   let digits =
     [d1, d2, n] |> list.filter_map(digits.to_digits(_, 10)) |> list.flatten
 

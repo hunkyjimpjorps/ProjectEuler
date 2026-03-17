@@ -4,13 +4,13 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-const denominator = 12_000
+const denominator: Int = 12_000
 
-fn solution() {
+fn solution() -> Int {
   count_mediants(3, 2)
 }
 
-fn count_mediants(from, to) {
+fn count_mediants(from: Int, to: Int) -> Int {
   let mediant = from + to
   case mediant > denominator {
     True -> 0

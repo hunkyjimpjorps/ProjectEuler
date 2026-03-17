@@ -12,9 +12,9 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-const limit = 50_000_000
+const limit: Int = 50_000_000
 
-fn solution() {
+fn solution() -> Int {
   let square_limit = math.floor_square_root(limit)
   let assert Ok(cube_limit) =
     maths.nth_root(int.to_float(limit), 3) |> result.map(float.truncate)
@@ -37,6 +37,6 @@ fn solution() {
   set.size(sum_set)
 }
 
-fn below(xs, n) {
+fn below(xs: List(Int), n: Int) -> List(Int) {
   list.take_while(xs, fn(p) { p < n })
 }

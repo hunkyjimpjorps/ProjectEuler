@@ -10,7 +10,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let assert Ok(raw_cards) = simplifile.read("./data/54.txt")
 
   raw_cards

@@ -8,7 +8,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let champernowne =
     yielder.repeat(Nil)
     |> yielder.transform(1, fn(i, _el) {

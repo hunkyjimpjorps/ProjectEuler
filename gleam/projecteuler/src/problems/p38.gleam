@@ -8,7 +8,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   use acc, n <- int.range(9000, 10_000, 0)
   case make_pandigital(n) {
     Ok(p) -> int.max(p, acc)
@@ -16,11 +16,11 @@ fn solution() {
   }
 }
 
-fn make_pandigital(n) {
+fn make_pandigital(n: Int) -> Result(Int, Nil) {
   do_pandigital(n, 1, [])
 }
 
-fn do_pandigital(n, i, acc) {
+fn do_pandigital(n: Int, i: Int, acc: List(Int)) -> Result(Int, Nil) {
   let assert Ok(next_product) = { n * i } |> digits.to_digits(10)
   use <- bool.guard(list.contains(next_product, 0), Error(Nil))
   use <- bool.guard(next_product != list.unique(next_product), Error(Nil))

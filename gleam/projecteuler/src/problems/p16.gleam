@@ -7,7 +7,7 @@ pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Result(Int, Nil) {
   pow(2, 1000) |> digits.to_digits(10) |> result.map(int.sum)
 }
 

@@ -4,15 +4,15 @@ import gleam_community/maths
 import utilities/digits
 import utilities/timing
 
-const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+const digits: List(Int) = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
 
-const divisors = [1, 2, 3, 5, 7, 11, 13, 17]
+const divisors: List(Int) = [1, 2, 3, 5, 7, 11, 13, 17]
 
 pub fn main() -> Nil {
   timing.run(solution)
 }
 
-fn solution() {
+fn solution() -> Int {
   let assert Ok(ns) = maths.list_permutation(digits, 10)
   yielder.filter(ns, is_special)
   |> yielder.fold(0, fn(acc, xs) {
@@ -21,7 +21,7 @@ fn solution() {
   })
 }
 
-fn is_special(digits) {
+fn is_special(digits: List(Int)) -> Bool {
   digits
   |> list.window(3)
   |> list.map2(divisors, fn(xs, d) {
