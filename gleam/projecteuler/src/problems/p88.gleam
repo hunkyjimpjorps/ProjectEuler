@@ -50,7 +50,7 @@ fn do_get_min_k(n, product, sum, depth, min_factor, cache) {
 
 fn valid(n: Int, k: Int, cache: Booklet(Dict(Int, Int))) {
   use <- bool.guard(k > max_size, 0)
-  case cache |> booklet.get() |> dict.get(k) {
+  let _ = case cache |> booklet.get() |> dict.get(k) {
     Ok(prev_n) if prev_n <= n -> 0
     _ -> {
       booklet.update(cache, dict.insert(_, k, n))
