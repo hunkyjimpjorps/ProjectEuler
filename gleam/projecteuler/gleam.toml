@@ -23,7 +23,7 @@ splitter = ">= 1.2.0 and < 2.0.0"
 tote = ">= 1.0.2 and < 2.0.0"
 ansel = ">= 2.0.0 and < 3.0.0"
 gleam_regexp = ">= 1.1.1 and < 2.0.0"
-yog = ">= 3.1.0 and < 4.0.0"
+yog = ">= 4.0.0 and < 5.0.0"
 aonyx_graph = ">= 1.1.0 and < 2.0.0"
 booklet = ">= 1.1.0 and < 2.0.0"
 
