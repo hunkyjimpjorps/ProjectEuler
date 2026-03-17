@@ -2,4 +2,5 @@
 *.ez
 /build
 /data
+/src/private
 erl_crash.dump
